@@ -12,3 +12,8 @@ machine separe)
 - Les videos archivee doivent etre deplace dans une autre table (voir mail prof)
 - Les contraint d'integrite doivent etre rendu
 
+
+#TODO
+
+- Fix Name in entity User
+
