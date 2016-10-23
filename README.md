@@ -11,6 +11,8 @@ machine separe)
 - ?? store separately domain names
 - varchar2 instead of varchar https://docs.oracle.com/cd/B28359_01/server.111/b28318/datatype.htm#i3253
 - email unique
+- char(1) avec check in ('Y','N') au lieu de BOOLEAN car il n'est pas 
+  present sur oracle
 
 
 
