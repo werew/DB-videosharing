@@ -6,28 +6,30 @@ CREATE TABLE WebUser (
     LastName    VARCHAR2(20)        ,
     Birth       DATE                ,
     Email       VARCHAR2(320)       NOT NULL UNIQUE,
-    NewsLetter  BOOLEAN             NOT NULL,
-    Admin       BOOLEAN             NOT NULL
+    NewsLetter  CHAR(1)             NOT NULL,
+    Admin       CHAR(1)             NOT NULL,
+    CONSTRAINT  ck_NewsLetter       CHECK (NewsLetter IN ('Y','N')),
+    CONSTRAINT  ck_Admin            CHECK (Admin IN ('Y','N'))
 );
 
 CREATE TABLE UserPass (
     UserID      INTEGER             PRIMARY KEY,
     PassHash    CHAR(41)            NOT NULL,       -- TODO 
     Salt        INTEGER             NOT NULL,       -- TODO
-    CONSTRAINT fk_UserPassUser      FOREIGN KEY (UserID) 
+    CONSTRAINT  fk_UserPassUser     FOREIGN KEY (UserID) 
                                     REFERENCES WebUser
                                     ON DELETE CASCADE
 );
 
 CREATE TABLE Category (
     CategoryID  INTEGER             PRIMARY KEY,
-    Name        VARCHAR2(20)         NOT NULL
+    Name        VARCHAR2(20)        NOT NULL
 );
 
 
 CREATE TABLE Program (
     ProgramID   INTEGER             PRIMARY KEY,
-    Name        VARCHAR2(20)         NOT NULL,
+    Name        VARCHAR2(20)        NOT NULL,
     CategoryID  INTEGER             NOT NULL,
     CONSTRAINT  fk_ProgramCategory  FOREIGN KEY (CategoryID) 
                                     REFERENCES Category
@@ -38,14 +40,15 @@ CREATE TABLE Video (
     Name        VARCHAR2(200)       NOT NULL,
     Description VARCHAR2(400)       ,
     Length      INTEGER             ,
-    Country     VARCHAR2(3)          ,   -- TODO 3 o 2 o complete name ?
+    Country     VARCHAR2(3)         ,   -- TODO 3 o 2 o complete name ?
     FirstDiffusion DATE             ,
-    Format      VARCHAR2(20)         ,
-    MultiLang   BOOLEAN             ,
+    Format      VARCHAR2(20)        ,
+    MultiLang   CHAR(1)             ,
     ProgramID   INTEGER             NOT NULL,
-    CONSTRAINT fk_VideoProgram      FOREIGN KEY (ProgramID) 
+    CONSTRAINT  fk_VideoProgram     FOREIGN KEY (ProgramID) 
                                     REFERENCES Program
-                                    ON DELETE CASCADE
+                                    ON DELETE CASCADE,
+    CONSTRAINT  ck_MultiLang        CHECK (MultiLang IN ('Y','N'))
 );
 
 CREATE TABLE ArchivedVideo (
@@ -53,11 +56,12 @@ CREATE TABLE ArchivedVideo (
     Name        VARCHAR2(200)       NOT NULL,
     Description VARCHAR2(400)       ,
     Length      INTEGER             ,
-    Country     VARCHAR2(3)          ,   -- TODO 3 o 2 o complete name ?
+    Country     VARCHAR2(3)         ,   -- TODO 3 o 2 o complete name ?
     FirstDiffusion DATE             ,
-    Format      VARCHAR2(20)         ,
-    MultiLang   BOOLEAN             ,
-    ProgramID   INTEGER             NOT NULL
+    Format      VARCHAR2(20)        ,
+    MultiLang   CHAR(1)             ,
+    ProgramID   INTEGER             NOT NULL,
+    CONSTRAINT  ck_MultiLangAv      CHECK (MultiLang IN ('Y','N'))
 );
     
 CREATE TABLE Diffusion (
