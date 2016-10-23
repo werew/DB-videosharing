@@ -31,3 +31,12 @@ machine separe)
 http://docs.oracle.com/database/121/DRDAA/migr_tools_feat.htm#DRDAA109
 need to use a trigger
 
+
+# Constraint
+- La date de la premier diffusion de chaque video doit correspondre
+  a la diffusion la plus ancienne (il peut etre NULL si il n'y a
+  encore aucune diffusion)
+
+- contraint pour les selections d'un utilisateur: il ne peut pas selectionner
+  un video qui n'a pas encore ete diffus.
+
