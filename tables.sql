@@ -66,7 +66,7 @@ CREATE TABLE ArchivedVideo (
     
 CREATE TABLE Diffusion (
     VideoID     INTEGER             NOT NULL,
-    Time        timestamp           NOT NULL,
+    Time        DATE                NOT NULL,
     CONSTRAINT  pk_Diffusion        PRIMARY KEY (VideoID, Time),
     CONSTRAINT  fk_DiffusionVideo   FOREIGN KEY (VideoID) 
                                     REFERENCES Video
