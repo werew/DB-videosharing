@@ -1,68 +1,67 @@
 
 CREATE TABLE User (
-    UserID      integer             PRIMARY KEY,
-    Login       varchar2(20)        NOT NULL UNIQUE,
-    FirstName   varchar2(20)        ,
-    LastName    varchar2(20)        ,
-    Birth       date                ,
-    Email       varchar2(320)       NOT NULL UNIQUE,
-    NewsLetter  boolean             NOT NULL,
-    Admin       boolean             NOT NULL
+    UserID      INTEGER             PRIMARY KEY,
+    Login       VARCHAR2(20)        NOT NULL UNIQUE,
+    FirstName   VARCHAR2(20)        ,
+    LastName    VARCHAR2(20)        ,
+    Birth       DATE                ,
+    Email       VARCHAR2(320)       NOT NULL UNIQUE,
+    NewsLetter  BOOLEAN             NOT NULL,
+    Admin       BOOLEAN             NOT NULL
 );
-                
 
 CREATE TABLE UserPass (
-    UserID      integer             PRIMARY KEY,
-    PassHash    char(41)            NOT NULL,       -- TODO 
-    Salt        integer             NOT NULL,       -- TODO
+    UserID      INTEGER             PRIMARY KEY,
+    PassHash    CHAR(41)            NOT NULL,       -- TODO 
+    Salt        INTEGER             NOT NULL,       -- TODO
     CONSTRAINT fk_UserPassUser      FOREIGN KEY (UserID) 
                                     REFERENCES User
                                     ON DELETE CASCADE
 );
 
 CREATE TABLE Category (
-    CategoryID  integer             PRIMARY KEY,
-    Name        varchar(20)         NOT NULL
+    CategoryID  INTEGER             PRIMARY KEY,
+    Name        VARCHAR2(20)         NOT NULL
 );
 
 
 CREATE TABLE Program (
-    ProgramID   integer             PRIMARY KEY,
-    Name        varchar(20)         NOT NULL,
-    CategoryID  integer             NOT NULL,
+    ProgramID   INTEGER             PRIMARY KEY,
+    Name        VARCHAR2(20)         NOT NULL,
+    CategoryID  INTEGER             NOT NULL,
     CONSTRAINT  fk_ProgramCategory  FOREIGN KEY (CategoryID) 
                                     REFERENCES Category
 );
 
 CREATE TABLE Video (
-    VideoID     integer             PRIMARY KEY,
-    Name        varchar2(200)       NOT NULL,
-    Description varchar2(400)       ,
-    Length      integer             ,
-    Country     varchar(3)          ,   -- TODO 3 o 2 o complete name ?
-    FirstDiffusion date             ,
-    Format      varchar(20)         ,
-    MultiLang   boolean             ,
-    ProgramID   integer             NOT NULL,
+    VideoID     INTEGER             PRIMARY KEY,
+    Name        VARCHAR2(200)       NOT NULL,
+    Description VARCHAR2(400)       ,
+    Length      INTEGER             ,
+    Country     VARCHAR2(3)          ,   -- TODO 3 o 2 o complete name ?
+    FirstDiffusion DATE             ,
+    Format      VARCHAR2(20)         ,
+    MultiLang   BOOLEAN             ,
+    ProgramID   INTEGER             NOT NULL,
     CONSTRAINT fk_VideoProgram      FOREIGN KEY (ProgramID) 
                                     REFERENCES Program
                                     ON DELETE CASCADE
 );
 
 CREATE TABLE ArchivedVideo (
-    ArchivedVideoID  integer        PRIMARY KEY,
-    Name        varchar2(200)       NOT NULL,
-    Description varchar2(400)       ,
-    Length      integer             ,
-    Country     varchar(3)          ,   -- TODO 3 o 2 o complete name ?
-    FirstDiffusion date             ,
-    Format      varchar(20)         ,
-    MultiLang   boolean             ,
-    ProgramID   integer             NOT NULL
+    ArchivedVideoID  INTEGER        PRIMARY KEY,
+    Name        VARCHAR2(200)       NOT NULL,
+    Description VARCHAR2(400)       ,
+    Length      INTEGER             ,
+    Country     VARCHAR2(3)          ,   -- TODO 3 o 2 o complete name ?
+    FirstDiffusion DATE             ,
+    Format      VARCHAR2(20)         ,
+    MultiLang   BOOLEAN             ,
+    ProgramID   INTEGER             NOT NULL
 );
     
 CREATE TABLE Diffusion (
-    VideoID     integer             NOT NULL,
+    VideoID     INTEGER             NOT NULL,
     Time        timestamp           NOT NULL,
     CONSTRAINT  pk_Diffusion        PRIMARY KEY (VideoID, Time),
     CONSTRAINT  fk_DiffusionVideo   FOREIGN KEY (VideoID) 
@@ -71,8 +70,8 @@ CREATE TABLE Diffusion (
 );
 
 CREATE TABLE Subscription (
-    UserID      integer             NOT NULL,
-    ProgramID   integer             NOT NULL,
+    UserID      INTEGER             NOT NULL,
+    ProgramID   INTEGER             NOT NULL,
     CONSTRAINT  pk_Subscription     PRIMARY KEY (UserID, ProgramID),
     CONSTRAINT  fk_SubscriptionUser FOREIGN KEY (UserID) 
                                     REFERENCES User
@@ -84,8 +83,8 @@ CREATE TABLE Subscription (
 
 
 CREATE TABLE UserSelection (
-    UserID      integer             NOT NULL,
-    VideoID     integer             NOT NULL,
+    UserID      INTEGER             NOT NULL,
+    VideoID     INTEGER             NOT NULL,
     CONSTRAINT  pk_UserSelection    PRIMARY KEY (UserID, VideoID),
     CONSTRAINT  fk_UseSelectionUser FOREIGN KEY (UserID) 
                                     REFERENCES User
@@ -97,8 +96,8 @@ CREATE TABLE UserSelection (
 
 
 CREATE TABLE Preference (
-    UserID      integer             NOT NULL,
-    CategoryID  integer             NOT NULL,
+    UserID      INTEGER             NOT NULL,
+    CategoryID  INTEGER             NOT NULL,
     CONSTRAINT  pk_Preference       PRIMARY KEY (UserID, CategoryID),
     CONSTRAINT  fk_PreferenceUser   FOREIGN KEY (UserID) 
                                     REFERENCES User
