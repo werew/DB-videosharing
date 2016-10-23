@@ -1,5 +1,5 @@
 
-CREATE TABLE User (
+CREATE TABLE WebUser (
     UserID      INTEGER             PRIMARY KEY,
     Login       VARCHAR2(20)        NOT NULL UNIQUE,
     FirstName   VARCHAR2(20)        ,
@@ -15,7 +15,7 @@ CREATE TABLE UserPass (
     PassHash    CHAR(41)            NOT NULL,       -- TODO 
     Salt        INTEGER             NOT NULL,       -- TODO
     CONSTRAINT fk_UserPassUser      FOREIGN KEY (UserID) 
-                                    REFERENCES User
+                                    REFERENCES WebUser
                                     ON DELETE CASCADE
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE Subscription (
     ProgramID   INTEGER             NOT NULL,
     CONSTRAINT  pk_Subscription     PRIMARY KEY (UserID, ProgramID),
     CONSTRAINT  fk_SubscriptionUser FOREIGN KEY (UserID) 
-                                    REFERENCES User
+                                    REFERENCES WebUser
                                     ON DELETE CASCADE,
     CONSTRAINT  fk_SubscriptionProgram FOREIGN KEY (ProgramID) 
                                     REFERENCES Program
@@ -87,7 +87,7 @@ CREATE TABLE UserSelection (
     VideoID     INTEGER             NOT NULL,
     CONSTRAINT  pk_UserSelection    PRIMARY KEY (UserID, VideoID),
     CONSTRAINT  fk_UseSelectionUser FOREIGN KEY (UserID) 
-                                    REFERENCES User
+                                    REFERENCES WebUser
                                     ON DELETE CASCADE,
     CONSTRAINT  fk_UserSelectionVideo FOREIGN KEY (VideoID) 
                                     REFERENCES Video
@@ -100,7 +100,7 @@ CREATE TABLE Preference (
     CategoryID  INTEGER             NOT NULL,
     CONSTRAINT  pk_Preference       PRIMARY KEY (UserID, CategoryID),
     CONSTRAINT  fk_PreferenceUser   FOREIGN KEY (UserID) 
-                                    REFERENCES User
+                                    REFERENCES WebUser 
                                     ON DELETE CASCADE,
     CONSTRAINT  fk_PreferenceCategory FOREIGN KEY (CategoryID) 
                                     REFERENCES Category
