@@ -70,17 +70,17 @@ INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, 
                     25, 'US', NULL, 'ogg', 'Y', 3);
 
 -- Diffusions
-INSERT INTO Diffusion (VideoID, TIME)
+INSERT INTO Diffusion (VideoID, Time)
             VALUES    (0, TO_DATE('12-JAN-2017 15:30', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, TIME)
+INSERT INTO Diffusion (VideoID, Time)
             VALUES    (0, TO_DATE('13-JAN-2017 15:30', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, TIME)
+INSERT INTO Diffusion (VideoID, Time)
             VALUES    (1, TO_DATE('19-FEB-2017 20:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, TIME)
+INSERT INTO Diffusion (VideoID, Time)
             VALUES    (2, TO_DATE('15-JAN-2017 8:20', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, TIME)
+INSERT INTO Diffusion (VideoID, Time)
             VALUES    (2, TO_DATE('15-JAN-2017 20:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, TIME)
+INSERT INTO Diffusion (VideoID, Time)
             VALUES    (5, TO_DATE('12-JAN-2017 11:45', 'DD-MM-YY HH24:MI'));
 
 
