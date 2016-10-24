@@ -106,6 +106,37 @@ INSERT INTO UserSelection (UserID, VideoID)
 INSERT INTO UserSelection (UserID, VideoID)
             VALUES        (4, 2);
 
+-- User views
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (0, 0, TO_DATE('13-JAN-2017 15:30:32', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (0, 4, TO_DATE('13-JAN-2017 15:30:59', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (1, 2, TO_DATE('20-FEB-2017 20:23:21', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (2, 4, TO_DATE('13-JAN-2017 8:20:45', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (2, 2, TO_DATE('13-JAN-2017 8:26:39', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (2, 5, TO_DATE('02-MAR-2017 12:09:10', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (2, 5, TO_DATE('03-MAR-2017 9:23:32', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 2, TO_DATE('17-JAN-2017 8:41:26', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 3, TO_DATE('29-JAN-2017 3:15:41', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 1, TO_DATE('02-FEB-2017 22:29:11', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 5, TO_DATE('04-FEB-2017 12:51:33', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 1, TO_DATE('11-MAR-2017 10:37:19', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 6, TO_DATE('11-MAR-2017 11:23:38', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time)
+            VALUES   (3, 2, TO_DATE('11-MAR-2017 11:56:24', 'DD-MM-YY HH24:MI:SS'));
+
+
 -- Preferences 
 INSERT INTO Preference (UserID, CategoryID)
             VALUES     (0,2);
