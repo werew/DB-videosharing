@@ -23,7 +23,7 @@ CREATE TABLE UserPass (
 
 CREATE TABLE Category (
     CategoryID  INTEGER                 PRIMARY KEY,
-    Name        VARCHAR2(20)            NOT NULL
+    Name        VARCHAR2(20)            NOT NULL UNIQUE
 );
 
 
