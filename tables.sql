@@ -86,11 +86,24 @@ CREATE TABLE Subscription (
 );
 
 
+CREATE TABLE UserView (
+    UserID      INTEGER             NOT NULL,
+    VideoID     INTEGER             NOT NULL,
+    Time        DATE                NOT NULL,
+    CONSTRAINT  pk_UserView         PRIMARY KEY (UserID, VideoID, Time),
+    CONSTRAINT  fk_UserViewUser     FOREIGN KEY (UserID) 
+                                    REFERENCES WebUser
+                                    ON DELETE CASCADE,
+    CONSTRAINT  fk_UserViewVideo    FOREIGN KEY (VideoID) 
+                                    REFERENCES Video
+                                    ON DELETE CASCADE
+);
+
 CREATE TABLE UserSelection (
     UserID      INTEGER             NOT NULL,
     VideoID     INTEGER             NOT NULL,
     CONSTRAINT  pk_UserSelection    PRIMARY KEY (UserID, VideoID),
-    CONSTRAINT  fk_UseSelectionUser FOREIGN KEY (UserID) 
+    CONSTRAINT  fk_UserSelectionUser FOREIGN KEY (UserID) 
                                     REFERENCES WebUser
                                     ON DELETE CASCADE,
     CONSTRAINT  fk_UserSelectionVideo FOREIGN KEY (VideoID) 
