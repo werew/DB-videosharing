@@ -25,6 +25,10 @@ machine separe)
 
 - Fix Name in entity User
 
+- Create a file to show all the constraints and 
+  some other actions. Need to print everything on the screen
+
+- Create documentation
 
 #Usefull
 -IDENTITY: auto increment not implemented unti oracle 12c
