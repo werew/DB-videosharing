@@ -40,3 +40,5 @@ need to use a trigger
 - contraint pour les selections d'un utilisateur: il ne peut pas selectionner
   un video qui n'a pas encore ete diffus.
 
+- Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse
+
