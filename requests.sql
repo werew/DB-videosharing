@@ -35,7 +35,47 @@ GROUP BY Category.Name ;
 */
 
 
+PROMPT ***** Requete N. 2 ******************************************************
+PROMPT * Par utilisateur, le nombre d''abonnements, de favoris et de videos    *
+PROMPT * visionnees                                                            *
+PROMPT *************************************************************************
 
+
+SELECT u.UserID "User", 
+       COUNT(DISTINCT s.ProgramID)  "Subscriptions", 
+       COUNT(DISTINCT us.VideoID ) "Selections"   ,
+       COUNT(DISTINCT CONCAT(uv.VideoID,uv.Time)) "Views"
+FROM WebUser u
+    LEFT OUTER JOIN Subscription s 
+        ON u.UserID = s.UserID 
+    LEFT OUTER JOIN UserSelection us
+        ON u.UserID = us.UserID 
+    LEFT OUTER JOIN UserView uv
+        ON u.UserID = uv.UserID 
+GROUP BY u.UserID
+ORDER BY u.UserID;
+
+
+/*
+SELECT u.UserID "User", 
+       COUNT(DISTINCT s.ProgramID)  "Subscriptions", 
+       COUNT(DISTINCT us.VideoID ) "Selections"   ,
+       k.Count "Views"
+FROM WebUser u
+    LEFT OUTER JOIN Subscription s 
+        ON u.UserID = s.UserID 
+    LEFT OUTER JOIN UserSelection us
+        ON u.UserID = us.UserID 
+    INNER JOIN ( SELECT u.UserID UserID, COUNT(uv.UserID) Count
+		 FROM WebUser u
+		      LEFT OUTER JOIN UserView uv
+		      ON u.UserID = uv.UserID 
+		 GROUP BY u.UserID
+		) k
+        ON u.UserID = k.UserID 
+GROUP BY u.UserID, k.Count
+ORDER BY u.UserID;
+*/
 
 
 
