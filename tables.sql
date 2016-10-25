@@ -5,6 +5,7 @@ CREATE TABLE WebUser (
     FirstName   VARCHAR2(20)            ,
     LastName    VARCHAR2(20)            ,
     Birth       DATE                    ,
+    Country     CHAR(2)                 ,
     Email       VARCHAR2(320)           NOT NULL UNIQUE,
     NewsLetter  CHAR(1)                 NOT NULL,
     Admin       CHAR(1)                 NOT NULL,
