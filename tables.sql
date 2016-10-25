@@ -40,7 +40,7 @@ CREATE TABLE Video (
     Name        VARCHAR2(200)           NOT NULL,
     Description VARCHAR2(400)           ,
     Length      INTEGER                 ,
-    Country     VARCHAR2(3)             ,   -- TODO 3 o 2 o complete name ?
+    Country     CHAR(2)                 ,
     FirstDiffusion DATE                 ,
     Format      VARCHAR2(20)            ,
     MultiLang   CHAR(1)                 ,
@@ -56,7 +56,7 @@ CREATE TABLE ArchivedVideo (
     Name        VARCHAR2(200)           NOT NULL,
     Description VARCHAR2(400)           ,
     Length      INTEGER                 ,
-    Country     VARCHAR2(3)             ,   -- TODO 3 o 2 o complete name ?
+    Country     CHAR(2)                 ,
     FirstDiffusion DATE                 ,
     Format      VARCHAR2(20)            ,
     MultiLang   CHAR(1)                 ,

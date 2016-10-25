@@ -13,6 +13,7 @@ machine separe)
 - email unique
 - char(1) avec check in ('Y','N') au lieu de BOOLEAN car il n'est pas 
   present sur oracle
+- CHAR(2) for countries car on utilise ISO 3166-1 alpha-2
 
 
 
