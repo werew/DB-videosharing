@@ -1,15 +1,15 @@
 
 -- Users
-INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Email, NewsLetter, Admin)
-            VALUES  (0, 'jojo', 'Mark', 'Lenas', '01-MAR-1992', 'jojo@gmail.com', 'N', 'N');
-INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Email, NewsLetter, Admin)
-            VALUES  (1, 'werew', 'Luigi', 'Coniglio', '07-MAR-1992', 'luigi.coniglio@etu.unistra.fr', 'N', 'Y');
-INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Email, NewsLetter, Admin)
-            VALUES  (2, 'ttk86', 'John', 'Smith', '19-FEB-1986', 'johnsm@gmail.com', 'Y', 'N');
-INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Email, NewsLetter, Admin)
-            VALUES  (3, 'awe', 'Lukas', 'Eihgvan', '03-DEC-1994', 'awe@yahoo.com', 'Y', 'Y');
-INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Email, NewsLetter, Admin)
-            VALUES  (4, 'jt', 'John', 'Titor', '13-APR-2036', 'jtitor@ibm.com', 'N', 'N');
+INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Country, Email, NewsLetter, Admin)
+            VALUES  (0, 'jojo', 'Mark', 'Lenas', '01-MAR-1992', 'FR', 'jojo@gmail.com', 'N', 'N');
+INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Country, Email, NewsLetter, Admin)
+            VALUES  (1, 'werew', 'Luigi','Coniglio', '07-MAR-1992','IT', 'luigi.coniglio@etu.unistra.fr', 'N', 'Y');
+INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Country, Email, NewsLetter, Admin)
+            VALUES  (2, 'ttk86', 'John', 'Smith', '19-FEB-1986','DE', 'johnsm@gmail.com', 'Y', 'N');
+INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Country, Email, NewsLetter, Admin)
+            VALUES  (3, 'awe', 'Lukas', 'Eihgvan', '03-DEC-1994','DE', 'awe@yahoo.com', 'Y', 'Y');
+INSERT INTO WebUser (UserID, Login, FirstName, LastName, Birth, Country, Email, NewsLetter, Admin)
+            VALUES  (4, 'jt', 'John', 'Titor', '13-APR-2036', 'FR', 'jtitor@ibm.com', 'N', 'N');
 
 -- Passwords
 INSERT INTO UserPass (UserID, PassHash, Salt)
