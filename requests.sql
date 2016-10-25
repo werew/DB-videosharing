@@ -79,3 +79,50 @@ ORDER BY u.UserID;
 
 
 
+PROMPT ***** Requete N. 3 ******************************************************
+PROMPT * Pour chaque video, le nombre de visionnages par des utilisateurs      *
+PROMPT * francais, le nombrede visionnage par des utilisateurs allemand, la    *
+PROMPT * difference entre les deux, trees par valeu absolue de la difference   *
+PROMPT * entre les deux.						       *
+PROMPT *************************************************************************
+
+
+
+
+WITH nb_views AS (
+	SELECT v.VideoID,
+	       COUNT(CASE WHEN u.Country = 'FR' then 1 else null end)  as fr,
+	       COUNT(CASE WHEN u.Country = 'DE' then 1 else null end)  as de
+	FROM Video v
+	LEFT OUTER JOIN UserView uv
+	    ON v.VideoID = uv.VideoID
+	LEFT OUTER JOIN WebUser u
+	    ON uv.UserID = u.UserID 
+	GROUP BY v.VideoID )
+SELECT VideoID, fr "Views FR", de "Views DE", ABS(fr-de) "Difference"
+FROM nb_views
+ORDER BY "Difference";
+
+
+/*
+SELECT v.VideoID, fr.NbViews "Views FR" , de.NbViews "Views DE", 
+       ABS(de.NbViews - fr.NbViews) as "Difference"
+FROM Video v
+LEFT OUTER JOIN (SELECT v.VideoID, COUNT(u.UserID) NbViews
+	         FROM Video v
+	         LEFT OUTER JOIN UserView uv
+	             ON v.VideoID = uv.VideoID
+	         LEFT OUTER JOIN WebUser u
+	             ON uv.UserID = u.UserID AND u.Country = 'FR'
+	         GROUP BY v.VideoID) fr
+    ON v.VideoID = fr.VideoID
+LEFT OUTER JOIN (SELECT v.VideoID, COUNT(u.UserID) NbViews
+	         FROM Video v
+	         LEFT OUTER JOIN UserView uv
+	             ON v.VideoID = uv.VideoID
+	         LEFT OUTER JOIN WebUser u
+	             ON uv.UserID = u.UserID AND u.Country = 'DE'
+	         GROUP BY v.VideoID) de
+    ON v.VideoID = de.VideoID 
+ORDER BY "Difference";
+*/
