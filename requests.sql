@@ -126,3 +126,34 @@ LEFT OUTER JOIN (SELECT v.VideoID, COUNT(u.UserID) NbViews
     ON v.VideoID = de.VideoID 
 ORDER BY "Difference";
 */
+
+
+
+PROMPT ***** Requete N. 4 ******************************************************
+PROMPT * Les episodes d''emissions qui ont au moins deux fois plus de          * 
+PROMPT * visionnage que la moyenne des visionnages des autres épisode	       *
+PROMPT * del''emission.	                                                       *
+PROMPT *************************************************************************
+
+
+WITH nbuv AS 
+	(SELECT p.ProgramID ProgramID, 
+		v.VideoID VideoID, 
+		COUNT(uv.VideoID) NbViews
+	 FROM Video v
+		 INNER JOIN Program p ON v.ProgramID = p.ProgramID
+		 LEFT OUTER JOIN UserView uv ON v.VideoID = uv.VideoID
+	 GROUP BY v.VideoID, p.ProgramID
+	)
+SELECT N1.VideoID
+FROM nbuv N1
+WHERE N1.NbViews >= COALESCE(
+		(SELECT AVG(N2.NbViews)
+		FROM nbuv N2 
+		WHERE N2.VideoID <> N1.VideoID
+		GROUP BY N2.ProgramID HAVING N2.ProgramID = N1.ProgramID
+		), 0 ) * 3;
+
+
+
+
