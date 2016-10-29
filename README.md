@@ -50,3 +50,5 @@ need to use a trigger
 
 - Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse
 
+- Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime
+
