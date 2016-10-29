@@ -152,8 +152,7 @@ WHERE N1.NbViews >= COALESCE(
 		FROM nbuv N2 
 		WHERE N2.VideoID <> N1.VideoID
 		GROUP BY N2.ProgramID HAVING N2.ProgramID = N1.ProgramID
-		), 0 ) * 3;
-
+		), 0 ) * 2;
 
 
 
