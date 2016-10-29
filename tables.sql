@@ -46,6 +46,7 @@ CREATE TABLE Video (
     Format      VARCHAR2(20)            ,
     MultiLang   CHAR(1)                 ,
     ProgramID   INTEGER                 NOT NULL,
+    Expiration  DATE                    ,
     CONSTRAINT  fk_Video_Program        FOREIGN KEY (ProgramID) 
                                         REFERENCES Program
                                         ON DELETE CASCADE,
