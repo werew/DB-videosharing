@@ -155,5 +155,48 @@ WHERE N1.NbViews >= COALESCE(
 		), 0 ) * 3;
 
 
+PROMPT ***** Requete N. 4 ******************************************************
+PROMPT * Les 10 couples de vidéos apparaissant le plus souvent simuanement    *
+PROMPT * dans un historique de visionnage de l''utilisateur. 	               *
+PROMPT *************************************************************************
 
+
+
+
+SELECT * FROM  (
+    SELECT v1.VideoID Video1, v2.VideoID Video2
+        FROM Video v1
+	    INNER JOIN Video v2
+	    ON v1.VideoID < v2.VideoID
+	    INNER JOIN UserView uv
+	    ON v1.VideoID = uv.VideoID AND v2.VideoID IN (
+	        SELECT DISTINCT uv2.VideoID 
+	        FROM UserView uv2
+		    WHERE uv2.UserID = uv.UserID
+		)
+	GROUP BY v1.VideoID, v2.VideoID
+	ORDER BY COUNT(DISTINCT uv.UserID) DESC
+)
+WHERE ROWNUM <= 10;
+
+
+-- Dans la meme colonne
+
+/*  
+SELECT * FROM  (
+    SELECT v1.VideoID || ' , ' ||  v2.VideoID "Couples of videos"
+        FROM Video v1
+	    INNER JOIN Video v2
+	    ON v1.VideoID < v2.VideoID
+	    INNER JOIN UserView uv
+	    ON v1.VideoID = uv.VideoID AND v2.VideoID IN (
+	        SELECT DISTINCT uv2.VideoID 
+	        FROM UserView uv2
+		    WHERE uv2.UserID = uv.UserID
+		)
+	GROUP BY v1.VideoID, v2.VideoID
+	ORDER BY COUNT(DISTINCT uv.UserID) DESC
+)
+WHERE ROWNUM <= 10;
+*/
 
