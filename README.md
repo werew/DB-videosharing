@@ -52,3 +52,6 @@ need to use a trigger
 
 - Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime
 
+- Après une diffusion, une vidéo sera accessible sur le site en replay pendant
+au moins 7 jours. 
+
