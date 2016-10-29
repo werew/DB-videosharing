@@ -104,20 +104,6 @@ FROM nb_views
 ORDER BY "Difference";
 
 
-WITH t AS (
-	SELECT v.VideoID,
-	       COUNT(CASE WHEN u.Country = 'FR' then 1 else null end)  "Views FR",
-	       COUNT(CASE WHEN u.Country = 'DE' then 1 else null end)  "Views DE"
-	FROM Video v
-	LEFT OUTER JOIN UserView uv
-	    ON v.VideoID = uv.VideoID
-	LEFT OUTER JOIN WebUser u
-	    ON uv.UserID = u.UserID 
-	GROUP BY v.VideoID)
-SELECT t.*, ABS(t.fr-t.de) AS "Difference"
-FROM t
-ORDER BY "Difference";
-
 /*
 SELECT v.VideoID, fr.NbViews "Views FR" , de.NbViews "Views DE", 
        ABS(de.NbViews - fr.NbViews) as "Difference"
