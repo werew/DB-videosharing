@@ -91,8 +91,8 @@ PROMPT *************************************************************************
 
 WITH nb_views AS (
 	SELECT v.VideoID,
-	       COUNT(CASE WHEN u.Country = 'FR' then 1 else null end)  as fr,
-	       COUNT(CASE WHEN u.Country = 'DE' then 1 else null end)  as de
+	       COUNT(CASE WHEN u.Country = 'FR' THEN 1 ELSE NULL END)  as fr,
+	       COUNT(CASE WHEN u.Country = 'DE' then 1 ELSE NULL END)  as de
 	FROM Video v
 	LEFT OUTER JOIN UserView uv
 	    ON v.VideoID = uv.VideoID
@@ -103,6 +103,20 @@ SELECT VideoID, fr "Views FR", de "Views DE", ABS(fr-de) "Difference"
 FROM nb_views
 ORDER BY "Difference";
 
+
+WITH t AS (
+	SELECT v.VideoID,
+	       COUNT(CASE WHEN u.Country = 'FR' then 1 else null end)  "Views FR",
+	       COUNT(CASE WHEN u.Country = 'DE' then 1 else null end)  "Views DE"
+	FROM Video v
+	LEFT OUTER JOIN UserView uv
+	    ON v.VideoID = uv.VideoID
+	LEFT OUTER JOIN WebUser u
+	    ON uv.UserID = u.UserID 
+	GROUP BY v.VideoID)
+SELECT t.*, ABS(t.fr-t.de) AS "Difference"
+FROM t
+ORDER BY "Difference";
 
 /*
 SELECT v.VideoID, fr.NbViews "Views FR" , de.NbViews "Views DE", 
