@@ -57,8 +57,8 @@ IS
 			SELECT d.VideoID
 			FROM Diffusion d
 			GROUP BY d.VideoID 
-			HAVING MIN(d.Time) BETWEEN SYSDATE AND 
-					   NEXT_DAY(SYSDATE, 'Sunday')
+			HAVING MIN(d.Time) >= SYSDATE AND 
+			       MIN(d.Time) <  TRUNC(NEXT_DAY(SYSDATE, 'Monday')) -- Monday at midnight
 		) next_vid
 			ON next_vid.VideoID = v.VideoID
 		INNER JOIN Program p
@@ -95,8 +95,8 @@ BEGIN
 		SELECT d.VideoID
 		FROM Diffusion d
 		GROUP BY d.VideoID 
-		HAVING MIN(d.Time) BETWEEN SYSDATE AND 
-				   NEXT_DAY(SYSDATE, 'Sunday')
+		HAVING MIN(d.Time) >= SYSDATE AND 
+		       MIN(d.Time) <  TRUNC(NEXT_DAY(SYSDATE, 'Monday')) -- Monday at midnight
 	)
 	SELECT LISTAGG( p.Name || ' - ' || v.Name || ': ' 
 		  || v.Description , chr(10) )
