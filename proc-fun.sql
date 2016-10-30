@@ -185,14 +185,45 @@ show errors;
 
 
 /* Exercice 4 */
--- TODO deux dernieres semaines
 
-CREATE OR REPLACE FUNCTION suggestion_list(user_a WebUser.UserID%TYPE)
-	RETURN VARCHAR2
+CREATE OR REPLACE PROCEDURE suggestion_list
+	(user_a WebUser.UserID%TYPE)
+IS 
+	CURSOR trendVideos_curs IS 
+		SELECT po.Name PName, v.Name VName, v.Description
+		FROM UserView uv
+		INNER JOIN Video v
+			ON v.VideoID = uv.VideoID
+		INNER JOIN Program po
+			ON po.ProgramID = v.ProgramID
+		INNER JOIN Preference pe
+			ON pe.UserID = 2 AND 
+			   pe.CategoryID = po.CategoryID
+		WHERE uv.Time > SYSDATE - 14
+		GROUP BY v.VideoID, po.Name, v.Name, v.Description
+		ORDER BY COUNT(DISTINCT uv.UserID) DESC;
+BEGIN
+	FOR trendVideos_row IN trendVideos_curs
+	LOOP
+		dbms_output.put_line(trendVideos_row.PName || ' - ' ||
+				     trendVideos_row.VName || ': '  ||
+				     trendVideos_row.Description);
+	END LOOP;
+END;
+/
+
+--TODO REMOVE
+show errors;
+
+
+CREATE OR REPLACE FUNCTION suggestion_list2
+	(user_a WebUser.UserID%TYPE) RETURN VARCHAR2
 IS 
 	list_v VARCHAR2(4000);
 BEGIN
-	SELECT LISTAGG(uv.VideoID, ', ') 
+	SELECT LISTAGG( v.Name || ' - ' || 
+		       po.Name || ': '  || 
+		       v.Description, chr(10) || chr(13)) 
 	       WITHIN GROUP (ORDER BY COUNT(DISTINCT uv.UserID) DESC)
 	       INTO list_v
         FROM UserView uv
@@ -204,7 +235,43 @@ BEGIN
                 ON pe.UserID = user_a AND 
                    pe.CategoryID = po.CategoryID
 	WHERE uv.Time > SYSDATE - 14
-        GROUP BY uv.VideoID;
+	GROUP BY v.VideoID, po.Name, v.Name, v.Description;
+
+	RETURN list_v;
+END;
+/
+
+
+--TODO REMOVE
+show errors;
+
+
+CREATE OR REPLACE FUNCTION suggestion_list3
+	(user_a WebUser.UserID%TYPE) RETURN VARCHAR2
+IS 
+	CURSOR trendVideos_curs IS 
+		SELECT po.Name PName, v.Name VName, v.Description
+		FROM UserView uv
+		INNER JOIN Video v
+			ON v.VideoID = uv.VideoID
+		INNER JOIN Program po
+			ON po.ProgramID = v.ProgramID
+		INNER JOIN Preference pe
+			ON pe.UserID = 2 AND 
+			   pe.CategoryID = po.CategoryID
+		WHERE uv.Time > SYSDATE - 14
+		GROUP BY v.VideoID, po.Name, v.Name, v.Description
+		ORDER BY COUNT(DISTINCT uv.UserID) DESC;
+	list_v VARCHAR2(4000);
+BEGIN
+	FOR trendVideos_row IN trendVideos_curs
+	LOOP
+		list_v := list_v ||
+			  trendVideos_row.PName || ' - ' ||
+			  trendVideos_row.VName || ': '  ||
+			  trendVideos_row.Description ||
+ 			  chr(10) || chr(13);
+	END LOOP;
 
 	RETURN list_v;
 END;
@@ -213,7 +280,11 @@ END;
 --TODO REMOVE
 show errors;
 
-SELECT suggestion_list(2) "JSON" FROM dual;
+PROMPT ##########1##########
+EXECUTE suggestion_list(2);
+PROMPT ##########2##########
+SELECT suggestion_list2(2) "JSON" FROM dual;
+SELECT suggestion_list3(2) "JSON" FROM dual;
 
 /*
 SELECT uv.VideoID, COUNT(DISTINCT uv.UserID)
