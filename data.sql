@@ -64,10 +64,10 @@ INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, 
                     25, 'US', NULL, 'ogg', 'Y', 3);
 INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, Format, MultiLang, ProgramID)
             VALUES (6, 'Episode - 2', 'Fry meets his new roommate',
-                    25, 'US', NULL, 'ogg', 'Y', 3);
+                    25, 'US', NULL, 'ogg', 'Y', TO_DATE('10-JAN-2017', 'DD-MM-YY'), 3);
 INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, Format, MultiLang, ProgramID)
             VALUES (7, 'Episode - 3', 'Fry visits the moon',
-                    25, 'US', NULL, 'ogg', 'Y', 3);
+                    25, 'US', NULL, 'ogg', 'Y', TO_DATE('15-JAN-2017', 'DD-MM-YY'), 3);
 
 -- Diffusions
 INSERT INTO Diffusion (VideoID, Time)
