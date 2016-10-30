@@ -119,3 +119,46 @@ show errors;
 
 
 
+/* Exercice 4 */
+
+
+CREATE OR REPLACE FUNCTION suggestion_list(user_a WebUser.UserID%TYPE)
+	RETURN VARCHAR2
+IS 
+	list_v VARCHAR2(4000);
+BEGIN
+	SELECT LISTAGG(uv.VideoID, ', ') 
+	       WITHIN GROUP (ORDER BY COUNT(DISTINCT uv.UserID) DESC)
+	       INTO list_v
+        FROM UserView uv
+	INNER JOIN Video v
+		ON v.VideoID = uv.VideoID
+        INNER JOIN Program po
+                ON po.ProgramID = v.ProgramID
+        INNER JOIN Preference pe
+                ON pe.UserID = user_a AND 
+                   pe.CategoryID = po.CategoryID
+        GROUP BY uv.VideoID;
+
+	RETURN list_v;
+END;
+/
+
+--TODO REMOVE
+show errors;
+
+SELECT suggestion_list(2) "JSON" FROM dual;
+
+SELECT uv.VideoID, COUNT(DISTINCT uv.UserID)
+FROM UserView uv
+INNER JOIN Video v
+	ON v.VideoID = uv.VideoID
+INNER JOIN Program po
+	ON po.ProgramID = v.ProgramID
+INNER JOIN Preference pe
+	ON pe.UserID = 2 AND 
+	   pe.CategoryID = po.CategoryID
+GROUP BY uv.VideoID
+ORDER BY COUNT(DISTINCT uv.UserID) DESC;
+
+
