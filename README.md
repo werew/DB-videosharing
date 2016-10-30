@@ -57,3 +57,5 @@ need to use a trigger
 - Après une diffusion, une vidéo sera accessible sur le site en replay pendant
 au moins 7 jours. 
 
+- Le temps d'une vue ne peut pas etre > SYSDATE
+
