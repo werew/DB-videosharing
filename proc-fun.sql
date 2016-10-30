@@ -84,3 +84,38 @@ show errors;
 
 
 
+/* Exercice 3 */
+
+
+CREATE OR REPLACE PROCEDURE mk_new_episodes
+	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
+IS 
+	nbweeks_v    INTEGER := (end_a-start_a)/7;
+	count_v	     INTEGER := 0;
+	lastep_v     Video.VideoID%TYPE;
+BEGIN
+	SELECT MAX(VideoID) INTO lastep_v
+	FROM Video; 
+
+	WHILE count_v < nbweeks_v
+	LOOP
+		count_v := count_v + 1;
+
+--TODO which number has to be incremented ? 
+
+		INSERT INTO Video (VideoID, Name, Description, ProgramID)
+		VALUES (lastep_v+count_v, 'Episode ' || count_v , 'a venir', prog_a);
+	END LOOP;
+	
+END;
+/
+
+
+--TODO REMOVE
+show errors;
+
+--TODO UNCOMMENT
+--EXECUTE mk_new_episodes(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
+
+
+
