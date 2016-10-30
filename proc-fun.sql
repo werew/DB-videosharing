@@ -1,9 +1,6 @@
 SET SERVEROUTPUT ON;
 
 
--- dbms_output.put_line('Hello');
-
-
 
 /* Exercice 1 */
 
@@ -23,12 +20,13 @@ BEGIN
 	        ' "multilang": '       || CASE WHEN Multilang = 'Y' 
                                           THEN 'true' ELSE 'false' 
                                           END            ||  ',' ||
+	        ' "expiration": "'     || Expiration     || '",' ||
 	        ' "programid": '       || ProgramID      ||
 	       ' }' INTO json_v
 	FROM Video
 	WHERE VideoID = vid;
 
-	RETURN json_v; /*TODO to lower ?? in order to take care of the nulls */
+	RETURN json_v; 
 END;
 /
 
@@ -37,7 +35,12 @@ END;
 show errors;
 
 --TODO UNCOMMENT
---SELECT video2json(VideoID) "JSON" FROM Video;
+SELECT video2json(VideoID) "JSON" FROM Video;
+--SELECT LOWER(video2json(VideoID)) "JSON" FROM Video;
+
+
+
+
 
 
 
@@ -84,6 +87,17 @@ show errors;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* Exercice 3 */
 
 
@@ -119,6 +133,16 @@ show errors;
 
 
 
+
+
+
+
+
+
+
+
+
+
 /* Exercice 4 */
 
 
@@ -146,7 +170,7 @@ END;
 
 --TODO REMOVE
 show errors;
-
+/*
 SELECT suggestion_list(2) "JSON" FROM dual;
 
 SELECT uv.VideoID, COUNT(DISTINCT uv.UserID)
@@ -160,5 +184,7 @@ INNER JOIN Preference pe
 	   pe.CategoryID = po.CategoryID
 GROUP BY uv.VideoID
 ORDER BY COUNT(DISTINCT uv.UserID) DESC;
+*/
+
 
 
