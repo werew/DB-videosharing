@@ -83,7 +83,7 @@ END;
 show errors;
 
 --TODO UNCOMMENT
-EXECUTE mk_newsletter_mail;
+--EXECUTE mk_newsletter_mail;
 
 -- Deuxieme optione
 -- Sans courseur et en utilisant un parametre de type OUT pour passer le texte de l'email
@@ -116,6 +116,7 @@ END;
 show errors;
 
 --TODO UNCOMMENT
+/*
 DECLARE
 	email_v VARCHAR2(4000);
 BEGIN
@@ -123,6 +124,7 @@ BEGIN
 	dbms_output.put_line(email_v);
 END;
 /
+*/
 
 
 
@@ -201,6 +203,7 @@ BEGIN
         INNER JOIN Preference pe
                 ON pe.UserID = user_a AND 
                    pe.CategoryID = po.CategoryID
+	WHERE uv.Time > SYSDATE - 14
         GROUP BY uv.VideoID;
 
 	RETURN list_v;
@@ -209,9 +212,10 @@ END;
 
 --TODO REMOVE
 show errors;
-/*
+
 SELECT suggestion_list(2) "JSON" FROM dual;
 
+/*
 SELECT uv.VideoID, COUNT(DISTINCT uv.UserID)
 FROM UserView uv
 INNER JOIN Video v
