@@ -34,6 +34,8 @@ machine separe)
 - Create a guide for correspondence english tables names --> french names into the project
   ex: Video Favoris --> UserSelection
 
+- If there is time: http://stackoverflow.com/questions/10286204/the-right-json-date-format
+
 #Usefull
 -IDENTITY: auto increment not implemented unti oracle 12c
 http://docs.oracle.com/database/121/DRDAA/migr_tools_feat.htm#DRDAA109
