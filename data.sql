@@ -82,6 +82,12 @@ INSERT INTO Diffusion (VideoID, Time)
             VALUES    (2, TO_DATE('15-JAN-2017 20:00', 'DD-MM-YY HH24:MI'));
 INSERT INTO Diffusion (VideoID, Time)
             VALUES    (5, TO_DATE('12-JAN-2017 11:45', 'DD-MM-YY HH24:MI'));
+INSERT INTO Diffusion (VideoID, Time)
+            VALUES    (5, TO_DATE('4-NOV-2016 11:45', 'DD-MM-YY HH24:MI'));
+INSERT INTO Diffusion (VideoID, Time)
+            VALUES    (2, TO_DATE('5-NOV-2016 20:00', 'DD-MM-YY HH24:MI'));
+INSERT INTO Diffusion (VideoID, Time)
+            VALUES    (1, TO_DATE('5-NOV-2016 20:00', 'DD-MM-YY HH24:MI'));
 
 
 -- Subscriptions
