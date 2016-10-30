@@ -35,8 +35,7 @@ END;
 show errors;
 
 --TODO UNCOMMENT
-SELECT video2json(VideoID) "JSON" FROM Video;
---SELECT LOWER(video2json(VideoID)) "JSON" FROM Video;
+--SELECT video2json(VideoID) "JSON" FROM Video;
 
 
 
@@ -46,9 +45,50 @@ SELECT video2json(VideoID) "JSON" FROM Video;
 
 /* Exercice 2 */
 
+
+-- Premiere option
+-- Avec un curseur en affichant le texte de l'email directement a l'ecran
 CREATE OR REPLACE PROCEDURE mk_newsletter_mail
-IS 
-	email_v VARCHAR2(4000);
+IS
+	CURSOR comingSoon_curs IS
+		SELECT p.Name PName, v.Name VName, v.Description
+		FROM Video v
+		INNER JOIN (
+			SELECT d.VideoID
+			FROM Diffusion d
+			GROUP BY d.VideoID 
+			HAVING MIN(d.Time) BETWEEN SYSDATE AND SYSDATE + 7
+		) next_vid
+			ON next_vid.VideoID = v.VideoID
+		INNER JOIN Program p
+			ON p.ProgramID = v.ProgramID;
+BEGIN
+	dbms_output.put_line('Hello, new fantastic videos are coming this week!');
+	dbms_output.put_line('Chek it out!');
+	dbms_output.put(chr(10) || chr(13));
+
+	FOR comingSoon_row IN comingSoon_curs
+	LOOP
+		dbms_output.put_line(comingSoon_row.PName || ' - ' ||
+				     comingSoon_row.VName || ': '  ||
+				     comingSoon_row.Description);
+	END LOOP;
+
+	dbms_output.put(chr(10) || chr(13));
+	dbms_output.put_line('See you soon on www.fantasticvideos.com!');
+END;
+/
+
+--TODO REMOVE
+show errors;
+
+--TODO UNCOMMENT
+EXECUTE mk_newsletter_mail;
+
+-- Deuxieme optione
+-- Sans courseur et en utilisant un parametre de type OUT pour passer le texte de l'email
+CREATE OR REPLACE PROCEDURE mk_newsletter_mail2 (email_v OUT VARCHAR2)
+IS
 BEGIN
 	WITH next_vid AS (
 		SELECT d.VideoID
@@ -57,7 +97,7 @@ BEGIN
 		HAVING MIN(d.Time) BETWEEN SYSDATE AND SYSDATE + 7
 	)
 	SELECT LISTAGG( p.Name || ' - ' || v.Name || ': ' 
-		  || v.Description , CHR(10) )
+		  || v.Description , chr(10) )
 	       WITHIN GROUP (ORDER BY p.ProgramID) INTO email_v
 	FROM Video v
 	INNER JOIN next_vid
@@ -66,14 +106,9 @@ BEGIN
 	ON p.ProgramID = v.ProgramID;
 
 	email_v := 'Hello, new fantastic videos are coming this week!' || chr(10) ||
-		   'Chek it out! ' || chr(10) || chr(10) || email_v 
-			|| chr(10) || chr(10) ||
+		   'Chek it out! ' || chr(10) || chr(10) || 
+		        email_v    || chr(10) || chr(10) ||
 		   'See you soon on www.fantasticvideos.com!';
-
-	dbms_output.put(email_v);
-
-	dbms_output.new_line;
-	
 END;
 /
 
@@ -81,9 +116,13 @@ END;
 show errors;
 
 --TODO UNCOMMENT
---EXECUTE mk_newsletter_mail;
-
-
+DECLARE
+	email_v VARCHAR2(4000);
+BEGIN
+	mk_newsletter_mail2(email_v);
+	dbms_output.put_line(email_v);
+END;
+/
 
 
 
@@ -144,7 +183,7 @@ show errors;
 
 
 /* Exercice 4 */
-
+-- TODO deux dernieres semaines
 
 CREATE OR REPLACE FUNCTION suggestion_list(user_a WebUser.UserID%TYPE)
 	RETURN VARCHAR2
