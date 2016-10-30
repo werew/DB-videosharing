@@ -43,9 +43,6 @@ need to use a trigger
 
 
 # Constraint
-- La date de la premier diffusion de chaque video doit correspondre
-  a la diffusion la plus ancienne (il peut etre NULL si il n'y a
-  encore aucune diffusion)
 
 - contraint pour les selections d'un utilisateur: il ne peut pas selectionner
   un video qui n'a pas encore ete diffus.
@@ -58,4 +55,8 @@ need to use a trigger
 au moins 7 jours. 
 
 - Le temps d'une vue ne peut pas etre > SYSDATE
+
+- Si il reste du temps: la date de premiere diffusion d'un video ne doit pas
+  etre superieure la ma date de la premiere diffusion dans la table diffusion (mais
+  il peut entre inferieure)
 
