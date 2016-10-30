@@ -159,6 +159,7 @@ BEGIN
 		count_v := count_v + 1;
 
 --TODO which number has to be incremented ? 
+--TODO problems if somebody is inserting videos at the same time
 
 		INSERT INTO Video (VideoID, Name, Description, ProgramID)
 		VALUES (lastep_v+count_v, 'Episode ' || count_v , 'a venir', prog_a);
