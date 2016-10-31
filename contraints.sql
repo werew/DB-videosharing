@@ -91,3 +91,57 @@ show errors;
 
 
 */
+
+
+
+/* Exercice 3 */
+-- TODO to test
+CREATE OR REPLACE TRIGGER ArchiveVideo
+AFTER DELETE ON Video
+FOR EACH ROW
+DECLARE
+BEGIN
+	INSERT INTO ArchivedVideo
+		(Name, Description, Length, Country, FirstDiffusion, Format, MultiLang)
+	VALUES  (:old.Name, :old.Description, :old.Length, :old.Country, 
+		 :old.FirstDiffusion, :old.Format, :old.MultiLang);
+END;
+/
+
+show errors;
+
+CREATE OR REPLACE TRIGGER ErasePrograms
+AFTER DELETE ON Video
+BEGIN
+	DELETE FROM Program p 
+	WHERE p.ProgramID IN (
+	        SELECT p2.ProgramID
+		FROM Program p2
+		LEFT OUTER JOIN Video v
+		    ON v.ProgramID = p2.ProgramID
+		WHERE COUNT(v.VideoID) = 0
+		GROUP BY p2.ProgramID
+	   );
+END;
+/
+
+
+show errors;
+
+
+CREATE OR REPLACE TRIGGER CountViews
+AFTER INSERT OR UPDATE ON UserView
+DECLARE
+	maxViewsMin_v	INTEGER;
+BEGIN
+	SELECT MAX(COUNT(*)) INTO maxViewsMin_v
+	FROM UserView
+	GROUP BY UserID, to_char(Time, 'YYYY-MM-DD HH24:MI');
+
+	IF maxViewsMin_v > 3 THEN
+		RAISE_APPLICATION_ERROR(-20200, 'Too many views for minute');	
+	END IF;
+END;
+/
+
+show errors;
