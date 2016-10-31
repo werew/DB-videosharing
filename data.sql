@@ -57,7 +57,7 @@ INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, 
             VALUES (3, 'Life is Beautiful', 'A Jewish librarian protecting his son during Holocaust',
                     90, 'IT', NULL, 'mp4', 'Y', 1);
 INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, Format, MultiLang, ProgramID)
-            VALUES (4, 'Turingi''s life', 'A tour inside the life of the father of the modern computer',
+            VALUES (4, 'Turing''s life', 'A tour inside the life of the father of the modern computer',
                     200, 'UK', NULL, 'avi', 'Y', 2);
 INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, Format, MultiLang, ProgramID)
             VALUES (5, 'Episode - 1', 'Space Pilot 3000',
