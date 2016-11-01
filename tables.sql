@@ -48,8 +48,7 @@ CREATE TABLE Video (
     ProgramID   INTEGER                 NOT NULL,
     Expiration  DATE                    ,
     CONSTRAINT  fk_Video_Program        FOREIGN KEY (ProgramID) 
-                                        REFERENCES Program
-                                        ON DELETE CASCADE,
+                                        REFERENCES Program,
     CONSTRAINT  ck_Video_MultiLang      CHECK (MultiLang IN ('Y','N'))
 );
 
