@@ -40,7 +40,7 @@ CREATE TABLE Video (
     VideoID     INTEGER                 PRIMARY KEY,
     Name        VARCHAR2(200)           NOT NULL,
     Description VARCHAR2(400)           ,
-    Length      INTEGER                 NOT NULL,
+    Length      INTEGER                 ,
     Country     CHAR(2)                 ,
     FirstDiffusion DATE                 ,
     Format      VARCHAR2(20)            ,
