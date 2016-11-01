@@ -155,16 +155,21 @@ END;
 show errors;
 
 
-CREATE OR REPLACE TRIGGER VideoAvailable
+CREATE OR REPLACE TRIGGER ValidView
 BEFORE INSERT OR UPDATE ON UserView
 FOR EACH ROW
 DECLARE
 	first_diff_v	Diffusion.Time%TYPE;
 BEGIN
+	
+	IF :new.Time > SYSDATE THEN
+		RAISE_APPLICATION_ERROR(-20200, 'Cannot watch a video in the future');
+	END IF;
+
 	SELECT MIN(Time) INTO first_diff_v
 	FROM Diffusion WHERE VideoID = :new.VideoID;
 
-	IF SYSDATE < first_diff_v OR first_diff_v IS NULL THEN
+	IF :new.Time < first_diff_v OR first_diff_v IS NULL THEN
 		RAISE_APPLICATION_ERROR(-20200, 'Video not yet available');
 	END IF;
 END;
@@ -208,3 +213,7 @@ END;
 
 
 show errors;
+
+
+
+
