@@ -47,7 +47,7 @@ show errors;
 
 
 /* Exercice 2 */
-
+--TODO select for update
 /* Met a jour toutes les dates de disponibilite a chaque UPDATE/INSERT */
 CREATE OR REPLACE TRIGGER UpdateExpiration
 AFTER INSERT OR UPDATE ON Diffusion
@@ -224,4 +224,44 @@ show errors;
 
 
 
+
+CREATE OR REPLACE TRIGGER FirstDiffusionCheck
+BEFORE INSERT OR UPDATE ON Diffusion
+FOR EACH ROW
+DECLARE
+	firstdiffusion_v	Video.FirstDiffusion%TYPE;
+BEGIN
+	SELECT FirstDiffusion INTO firstdiffusion_v
+	FROM Video WHERE VideoID = :new.VideoID;
+
+	IF :new.Time < firstdiffusion_v THEN
+		RAISE_APPLICATION_ERROR(-20200, 'Time is previous to first diffusion');
+	END IF;
+END;
+/
+
+
+show errors;
+
+
+
+CREATE OR REPLACE TRIGGER VideoWasDiffused
+BEFORE INSERT OR UPDATE ON Video
+FOR EACH ROW
+DECLARE
+	first_diff_v	 Diffusion.Time%TYPE;
+BEGIN
+	IF :new.FirstDiffusion IS NOT NULL THEN
+		SELECT MIN(Time) INTO first_diff_v
+		FROM Diffusion WHERE VideoID = :new.VideoID;
+
+		IF :new.FirstDiffusion > first_diff_v THEN
+			RAISE_APPLICATION_ERROR(-20200, 'Video was already diffused');
+		END IF;
+	END IF;
+END;
+/
+
+
+show errors;
 
