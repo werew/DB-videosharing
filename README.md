@@ -60,3 +60,5 @@ au moins 7 jours.
   etre superieure la ma date de la premiere diffusion dans la table diffusion (mais
   il peut entre inferieure)
 
+- Contraints sur la date de expiration
+
