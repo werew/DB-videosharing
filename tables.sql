@@ -61,7 +61,6 @@ CREATE TABLE ArchivedVideo (
     FirstDiffusion DATE                 ,
     Format      VARCHAR2(20)            ,
     MultiLang   CHAR(1)                 ,
-    ProgramID   INTEGER                 NOT NULL,
     CONSTRAINT  ck_ArchivedVideo_MultiLang CHECK (MultiLang IN ('Y','N'))
 );
     
