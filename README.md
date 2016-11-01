@@ -36,6 +36,8 @@ machine separe)
 
 - If there is time: http://stackoverflow.com/questions/10286204/the-right-json-date-format
 
+- Check the nulls into the if conditions
+
 #Usefull
 -IDENTITY: auto increment not implemented unti oracle 12c
 http://docs.oracle.com/database/121/DRDAA/migr_tools_feat.htm#DRDAA109
@@ -44,21 +46,21 @@ need to use a trigger
 
 # Constraint
 
-- contraint pour les selections d'un utilisateur: il ne peut pas selectionner
+- contraint pour les selections d'un utilisateur: il PEUT selectionner
   un video qui n'a pas encore ete diffus.
 
-- Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse
+- Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse (Trigger VideoAvailable)
 
-- Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime
+- Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime (Trigger WaitExpiration)
 
 - Après une diffusion, une vidéo sera accessible sur le site en replay pendant
-au moins 7 jours. 
+au moins 7 jours.  (trigger BadExpiration)
 
-- Le temps d'une vue ne peut pas etre > SYSDATE
+- Le temps d'une vue ne peut pas etre > SYSDATE  (DID ! Better application level)
 
 - Si il reste du temps: la date de premiere diffusion d'un video ne doit pas
   etre superieure la ma date de la premiere diffusion dans la table diffusion (mais
-  il peut entre inferieure)
+  il peut entre inferieure) (DONE)
 
-- Contraints sur la date de expiration
+- Contraints sur la date de expiration (Trigger ValidView)
 
