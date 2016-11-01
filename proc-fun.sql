@@ -151,7 +151,9 @@ IS
 	count_v	     INTEGER := 0;
 	lastep_v     Video.VideoID%TYPE;
 BEGIN
-	SELECT MAX(VideoID) INTO lastep_v
+	LOCK TABLE Video IN SHARE MODE;
+
+	SELECT COALESCE(MAX(VideoID),0) INTO lastep_v
 	FROM Video; 
 
 	WHILE count_v < nbweeks_v
@@ -159,7 +161,6 @@ BEGIN
 		count_v := count_v + 1;
 
 --TODO which number has to be incremented ? 
---TODO problems if somebody is inserting videos at the same time
 
 		INSERT INTO Video (VideoID, Name, Description, ProgramID)
 		VALUES (lastep_v+count_v, 'Episode ' || count_v , 'a venir', prog_a);
@@ -283,25 +284,5 @@ END;
 --TODO REMOVE
 show errors;
 
-PROMPT ##########1##########
-EXECUTE suggestion_list(2);
-PROMPT ##########2##########
-SELECT suggestion_list2(2) "JSON" FROM dual;
-SELECT suggestion_list3(2) "JSON" FROM dual;
-
-/*
-SELECT uv.VideoID, COUNT(DISTINCT uv.UserID)
-FROM UserView uv
-INNER JOIN Video v
-	ON v.VideoID = uv.VideoID
-INNER JOIN Program po
-	ON po.ProgramID = v.ProgramID
-INNER JOIN Preference pe
-	ON pe.UserID = 2 AND 
-	   pe.CategoryID = po.CategoryID
-GROUP BY uv.VideoID
-ORDER BY COUNT(DISTINCT uv.UserID) DESC;
-*/
-
-
-
+/* TODO UNCOMMENT */
+--EXECUTE suggestion_list(2);
