@@ -99,11 +99,19 @@ show errors;
 CREATE OR REPLACE TRIGGER ArchiveVideo
 AFTER DELETE ON Video
 FOR EACH ROW
+DECLARE
+	archID_v 	INTEGER;
 BEGIN
+	LOCK TABLE ArchivedVideo IN SHARE MODE;
+
+	SELECT COALESCE(MAX(ArchivedVideoID)+1,0) INTO archID_v
+	FROM ArchivedVideo;
+
 	INSERT INTO ArchivedVideo
-		(ArchivedVideoID, Name, Description, Length, Country, FirstDiffusion, Format, MultiLang)
-	VALUES  (:old.VideoID, :old.Name, :old.Description, :old.Length, :old.Country, 
-		 :old.FirstDiffusion, :old.Format, :old.MultiLang );
+		(ArchivedVideoID, Name, Description, Length,
+		 Country, FirstDiffusion, Format, MultiLang)
+	VALUES  (archID_v, :old.Name, :old.Description, :old.Length, 
+		:old.Country,:old.FirstDiffusion, :old.Format, :old.MultiLang );
 END;
 /
 
