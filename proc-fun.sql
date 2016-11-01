@@ -174,6 +174,36 @@ END;
 --TODO REMOVE
 show errors;
 
+CREATE OR REPLACE PROCEDURE mk_new_episodes2
+	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
+IS 
+	datediff_v 	DATE := start_a;
+	epid_v     Video.VideoID%TYPE;
+BEGIN
+	LOCK TABLE Video IN SHARE MODE;
+
+	SELECT COALESCE(MAX(VideoID)+1,0) INTO epid_v
+	FROM Video; 
+
+	WHILE datediff_v <= end_a
+	LOOP
+		INSERT INTO Video (VideoID, Name, Description, ProgramID)
+		VALUES (epid_v, 'New episode' , 'a venir', prog_a);
+
+		INSERT INTO Diffusion (VideoID, Time)
+		VALUES (epid_v, datediff_v);
+
+		datediff_v := datediff_v + 7;
+		epid_v := epid_v + 1;
+	END LOOP;
+	
+END;
+/
+
+
+--TODO REMOVE
+show errors;
+
 --TODO UNCOMMENT
 --EXECUTE mk_new_episodes(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
 
