@@ -153,3 +153,19 @@ END;
 /
 
 show errors;
+
+
+
+CREATE OR REPLACE TRIGGER WaitExpiration
+BEFORE DELETE ON Video
+FOR EACH ROW
+BEGIN
+	IF SYSDATE < :old.Expiration THEN
+		RAISE_APPLICATION_ERROR(-20200, 'Video not yet expired');
+	END IF;
+END;
+/
+
+
+show errors;
+
