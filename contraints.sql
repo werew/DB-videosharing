@@ -188,18 +188,23 @@ END;
 show errors;
 
 
-/*
-CREATE OR REPLACE TRIGGER WaitExpiration
+CREATE OR REPLACE TRIGGER BadExpiration
 BEFORE UPDATE ON Video
 FOR EACH ROW
+DECLARE
+	lastdiff_v 	Diffusion.Time%TYPE;	
 BEGIN
-	
-	IF SYSDATE < :old.Expiration THEN
-		RAISE_APPLICATION_ERROR(-20200, 'Video not yet expired');
+	IF :new.Expiration < :old.Expiration 
+	   OR :old.Expiration IS NULL  THEN
+		SELECT MAX(Time) INTO lastdiff_v
+		FROM Diffusion WHERE VideoID = :new.VideoID;
+		
+		IF :new.Expiration < lastdiff_v + 7 THEN
+			RAISE_APPLICATION_ERROR(-20200, 'New expiration is too early');
+		END IF;
 	END IF;
 END;
 /
 
 
 show errors;
-*/
