@@ -48,6 +48,7 @@ show errors;
 
 -- Premiere option
 -- Avec un curseur en affichant le texte de l'email directement a l'ecran
+-- En utilisant monday comme premier jour de la semaine
 CREATE OR REPLACE PROCEDURE mk_newsletter_mail
 IS
 	CURSOR comingSoon_curs IS
@@ -57,14 +58,14 @@ IS
 			SELECT d.VideoID
 			FROM Diffusion d
 			GROUP BY d.VideoID 
-			HAVING MIN(d.Time) >= SYSDATE AND 
-			       MIN(d.Time) <  TRUNC(NEXT_DAY(SYSDATE, 'Monday')) -- Monday at midnight
+			HAVING MIN(d.Time) >= TRUNC(NEXT_DAY(SYSDATE-7, 'Monday')) AND -- Last monday at midnight
+			       MIN(d.Time) <  TRUNC(NEXT_DAY(SYSDATE, 'Monday')) -- Next Monday at midnight
 		) next_vid
 			ON next_vid.VideoID = v.VideoID
 		INNER JOIN Program p
 			ON p.ProgramID = v.ProgramID;
 BEGIN
-	dbms_output.put_line('Hello, new fantastic videos are coming this week!');
+	dbms_output.put_line('Hello, have you seen the new videos of this week ?');
 	dbms_output.put_line('Chek it out!');
 	dbms_output.put(chr(10) || chr(13));
 
@@ -164,6 +165,36 @@ BEGIN
 
 		INSERT INTO Video (VideoID, Name, Description, ProgramID)
 		VALUES (lastep_v+count_v, 'Episode ' || count_v , 'a venir', prog_a);
+	END LOOP;
+	
+END;
+/
+
+
+--TODO REMOVE
+show errors;
+
+CREATE OR REPLACE PROCEDURE mk_new_episodes2
+	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
+IS 
+	datediff_v 	DATE := start_a;
+	epid_v     Video.VideoID%TYPE;
+BEGIN
+	LOCK TABLE Video IN SHARE MODE;
+
+	SELECT COALESCE(MAX(VideoID)+1,0) INTO epid_v
+	FROM Video; 
+
+	WHILE datediff_v <= end_a
+	LOOP
+		INSERT INTO Video (VideoID, Name, Description, ProgramID)
+		VALUES (epid_v, 'New episode' , 'a venir', prog_a);
+
+		INSERT INTO Diffusion (VideoID, Time)
+		VALUES (epid_v, datediff_v);
+
+		datediff_v := datediff_v + 7;
+		epid_v := epid_v + 1;
 	END LOOP;
 	
 END;
