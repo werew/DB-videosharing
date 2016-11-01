@@ -154,16 +154,24 @@ END;
 
 show errors;
 
+/************** MY CONTRAINTS *******************/
 
 CREATE OR REPLACE TRIGGER ValidView
 BEFORE INSERT OR UPDATE ON UserView
 FOR EACH ROW
 DECLARE
 	first_diff_v	Diffusion.Time%TYPE;
+	expiration_v	Video.Expiration%TYPE;
 BEGIN
-	
 	IF :new.Time > SYSDATE THEN
 		RAISE_APPLICATION_ERROR(-20200, 'Cannot watch a video in the future');
+	END IF;
+
+	SELECT Expiration INTO expiration_v
+	FROM Video WHERE VideoID = :new.VideoID;
+
+	IF :new.Time >= expiration_v THEN
+		RAISE_APPLICATION_ERROR(-20200, 'The video has already expired');
 	END IF;
 
 	SELECT MIN(Time) INTO first_diff_v
