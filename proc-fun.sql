@@ -48,6 +48,7 @@ show errors;
 
 -- Premiere option
 -- Avec un curseur en affichant le texte de l'email directement a l'ecran
+-- En utilisant monday comme premier jour de la semaine
 CREATE OR REPLACE PROCEDURE mk_newsletter_mail
 IS
 	CURSOR comingSoon_curs IS
@@ -57,14 +58,14 @@ IS
 			SELECT d.VideoID
 			FROM Diffusion d
 			GROUP BY d.VideoID 
-			HAVING MIN(d.Time) >= SYSDATE AND 
-			       MIN(d.Time) <  TRUNC(NEXT_DAY(SYSDATE, 'Monday')) -- Monday at midnight
+			HAVING MIN(d.Time) >= TRUNC(NEXT_DAY(SYSDATE-7, 'Monday')) AND -- Last monday at midnight
+			       MIN(d.Time) <  TRUNC(NEXT_DAY(SYSDATE, 'Monday')) -- Next Monday at midnight
 		) next_vid
 			ON next_vid.VideoID = v.VideoID
 		INNER JOIN Program p
 			ON p.ProgramID = v.ProgramID;
 BEGIN
-	dbms_output.put_line('Hello, new fantastic videos are coming this week!');
+	dbms_output.put_line('Hello, have you seen the new videos of this week ?');
 	dbms_output.put_line('Chek it out!');
 	dbms_output.put(chr(10) || chr(13));
 
