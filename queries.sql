@@ -1,14 +1,8 @@
-
-
 PROMPT
 PROMPT ***** Requete N. 1 ******************************************************
 PROMPT * Nombre de visionnages de videos par categories de videos, pour les    *
 PROMPT * visionnages de moins de deux semaines.                                *
 PROMPT *************************************************************************
-
-
--- XXX Improvements: better names, natural joins, 
--- problem with the future?
 
 SELECT c.Name "Category" , COUNT(*) "Views"
 FROM   Category c , UserView uv , Video v , Program p
@@ -19,7 +13,7 @@ WHERE  uv.Time > SYSDATE - 14
 GROUP BY c.CategoryID , c.Name ;
 
 
--- En utilisant des INNER JOIN
+-- Using the JOIN statement
 
 /* 
 SELECT Category.Name "Category" , COUNT(*) "Views"
@@ -36,10 +30,9 @@ GROUP BY Category.Name ;
 
 
 PROMPT ***** Requete N. 2 ******************************************************
-PROMPT * Par utilisateur, le nombre d''abonnements, de favoris et de videos    *
+PROMPT * Par utilisateur, le nombre d abonnements, de favoris et de videos     *
 PROMPT * visionnees                                                            *
 PROMPT *************************************************************************
-
 
 SELECT u.UserID "User", 
        COUNT(DISTINCT s.ProgramID)  "Subscriptions", 
@@ -55,6 +48,8 @@ FROM WebUser u
 GROUP BY u.UserID
 ORDER BY u.UserID;
 
+
+-- Without using COUNT
 
 /*
 SELECT u.UserID "User", 
@@ -79,15 +74,14 @@ ORDER BY u.UserID;
 
 
 
+
+
 PROMPT ***** Requete N. 3 ******************************************************
 PROMPT * Pour chaque video, le nombre de visionnages par des utilisateurs      *
-PROMPT * francais, le nombrede visionnage par des utilisateurs allemand, la    *
-PROMPT * difference entre les deux, trees par valeu absolue de la difference   *
-PROMPT * entre les deux.						       *
+PROMPT * francais, le nombre de visionnage par des utilisateurs allemand, la   *
+PROMPT * difference entre les deux, tries par valeur absolue de la difference  *
+PROMPT * entre les deux.	     				                               *
 PROMPT *************************************************************************
-
-
-
 
 WITH nb_views AS (
 	SELECT v.VideoID,
@@ -103,6 +97,8 @@ SELECT VideoID, fr "Views FR", de "Views DE", ABS(fr-de) "Difference"
 FROM nb_views
 ORDER BY "Difference";
 
+
+-- Using nested queries
 
 /*
 SELECT v.VideoID, fr.NbViews "Views FR" , de.NbViews "Views DE", 
@@ -129,10 +125,13 @@ ORDER BY "Difference";
 
 
 
+
+
+
 PROMPT ***** Requete N. 4 ******************************************************
-PROMPT * Les episodes d''emissions qui ont au moins deux fois plus de          * 
+PROMPT * Les episodes d emissions qui ont au moins deux fois plus de           * 
 PROMPT * visionnage que la moyenne des visionnages des autres épisode	       *
-PROMPT * del''emission.	                                                       *
+PROMPT * del emission.	                                                       *
 PROMPT *************************************************************************
 
 
@@ -154,13 +153,16 @@ WHERE N1.NbViews >= COALESCE(
 		GROUP BY N2.ProgramID HAVING N2.ProgramID = N1.ProgramID
 		), 0 ) * 2;
 
+
+
+
+
+
+
 PROMPT ***** Requete N. 4 ******************************************************
-PROMPT * Les 10 couples de vidéos apparaissant le plus souvent simuanement    *
-PROMPT * dans un historique de visionnage de l''utilisateur. 	               *
+PROMPT * Les 10 couples de vidéos apparaissant le plus souvent simuanement     *
+PROMPT * dans un historique de visionnage de l utilisateur. 	               *
 PROMPT *************************************************************************
-
-
-
 
 SELECT * FROM  (
     SELECT v1.VideoID Video1, v2.VideoID Video2
@@ -179,7 +181,7 @@ SELECT * FROM  (
 WHERE ROWNUM <= 10;
 
 
--- Dans la meme colonne
+-- Into the same column
 
 /*  
 SELECT * FROM  (
