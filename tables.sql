@@ -1,9 +1,9 @@
 
 CREATE TABLE WebUser (
     UserID      INTEGER                 PRIMARY KEY,
-    Login       VARCHAR2(20)            NOT NULL UNIQUE,
-    FirstName   VARCHAR2(20)            ,
-    LastName    VARCHAR2(20)            ,
+    Login       VARCHAR2(35)            NOT NULL UNIQUE,
+    FirstName   VARCHAR2(35)            ,
+    LastName    VARCHAR2(35)            ,
     Birth       DATE                    ,
     Country     CHAR(2)                 ,
     Email       VARCHAR2(320)           NOT NULL UNIQUE,
@@ -13,14 +13,16 @@ CREATE TABLE WebUser (
     CONSTRAINT  ck_Admin                CHECK (Admin IN ('Y','N'))
 );
 
+
 CREATE TABLE UserPass (
     UserID      INTEGER                 PRIMARY KEY,
-    PassHash    CHAR(41)                NOT NULL,       -- TODO 
-    Salt        INTEGER                 NOT NULL,       -- TODO
+    PassHash    CHAR(41)                NOT NULL,      
+    Salt        INTEGER                 NOT NULL,    
     CONSTRAINT  fk_UserPass_WebUser     FOREIGN KEY (UserID) 
                                         REFERENCES WebUser
                                         ON DELETE CASCADE
 );
+
 
 CREATE TABLE Category (
     CategoryID  INTEGER                 PRIMARY KEY,
@@ -35,6 +37,7 @@ CREATE TABLE Program (
     CONSTRAINT  fk_Program_Category     FOREIGN KEY (CategoryID) 
                                         REFERENCES Category
 );
+
 
 CREATE TABLE Video (
     VideoID     INTEGER                 PRIMARY KEY,
@@ -52,6 +55,7 @@ CREATE TABLE Video (
     CONSTRAINT  ck_Video_MultiLang      CHECK (MultiLang IN ('Y','N'))
 );
 
+
 CREATE TABLE ArchivedVideo (
     ArchivedVideoID  INTEGER            PRIMARY KEY,
     Name        VARCHAR2(200)           NOT NULL,
@@ -63,6 +67,7 @@ CREATE TABLE ArchivedVideo (
     MultiLang   CHAR(1)                 ,
     CONSTRAINT  ck_ArchivedVideo_MultiLang CHECK (MultiLang IN ('Y','N'))
 );
+
     
 CREATE TABLE Diffusion (
     VideoID     INTEGER                 NOT NULL,
@@ -72,6 +77,7 @@ CREATE TABLE Diffusion (
                                         REFERENCES Video
                                         ON DELETE CASCADE
 );
+
 
 CREATE TABLE Subscription (
     UserID      INTEGER                 NOT NULL,
@@ -99,6 +105,7 @@ CREATE TABLE UserView (
                                         ON DELETE CASCADE
 );
 
+ 
 CREATE TABLE UserSelection (
     UserID      INTEGER                 NOT NULL,
     VideoID     INTEGER                 NOT NULL,
