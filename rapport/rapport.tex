@@ -64,10 +64,15 @@
 
 \section{Fichiers rendu et usage}
 \subsection{Contenu du rapport}
+L'objectif de ce rapport est d'abord celui de illustrer la structure de la base
+de donnees et en particulier les choix qui ont ete prises lors de
+l'implementation. Pour accelerer/simplifier l'utilisation du travail rendu, la
+partie initial de ce rapport decrit le contenu des fichiers et leurs usage.
+
 \subsection{Contenu de l'archive}
 Apres avoir ouvert l'archive {\it coniglio\_luigi.tar.gz} vous
 trouverez les fichiers suivants:
-
+\smallbreak
 \begin{itemize}
 \item Ce rapport
 \item Les fichiers {\bf ent-rel.pdf} et {\bf base.pdf} contenant
@@ -95,6 +100,16 @@ trouverez les fichiers suivants:
       declancheurs et remplire la base en une seule fois.
 \end{itemize}
 
+\bigbreak
+La plupart du temps vous trouverez plusieurs solutions pour les requetes,
+fonctions, procedures et les declancheurs (traduisent les contraintes) demandes
+dans les sujet. Chaque version represente une implementation differente du
+travail a effectuer, un autre moyen de resoudre le probleme  (p.ex. avec
+curseur / sans curseur, avec des jointures / avec des sous requetes ...).
+Chaque implementation est accompagnee par une petite descrition qui en
+documente les caracteristiques.  Pour des raisons de clarte, les solutions
+apres la premiere sont mises en commentaire. 
+
 \subsection{Usage}
 Utilisez les fichier {\bf makedb.sql} pour creer la base:
 \begin{center}
@@ -110,14 +125,43 @@ ou bien tester les contraintes d'integrite de la base
 
 \smallbreak
 Dans chacun des ces cas vous serez presente avec un affichage permettant de
-reconnetre sur l'ecran la sortie de chaque requete:
+facilement reconnetre sur l'ecran la sortie de chaque requete:
+
 \begin{lstlisting}
 %TODO insert example
-
 \end{lstlisting}
 
+Apres avoir termine, utilisez le fichier {\bf droptables.sql} pour supprimer
+la base de donnees:
+\begin{center}
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @droptables|}.
+\end{center}
 
 \section{Description des tables}
+Etant donne que la structure de la base de donnees traduit directement la
+description fourni dans le sujet, cette partie du rapport se limitera a fournir
+quelque éclaircissements sur des parties laisse a la "libre interpretation" des
+etudiants.
+
+\subsection{Tables {\it WebUser} et {\it UserPass}}
+
+Les password des utilisateurs ne sont pas stockees dans la meme table avec les
+autres informations (table {\it WebUser}
+\footnote{Le nom {\it WebUser} derive du fait que let mot {\it User} est reserve dans Oracle:
+https://docs.oracle.com/cd/B19306\_01/em.102/b40103/app\_oracle\_reserved\_words.htm}.
+Cet approche valorise l'aspect securite et permet par
+example de differentier les droits sur les tables
+\footnote{Une meilleure solutions pour stocker les mots de passe d'un
+utilisateur consiste a utiliser un serveur different pas accessible de
+l'exterieur et donc  moin subsceptible aux attaques}.
+La table {\it UserPass} contient les hashes des passwords et leur valeur de
+salage.  Ce systeme represente aujourd'hui le minimum en termes de securite
+dans le stockage des mots de passe des utilisateurs.
+
+
+\subsection{Types}
+%Country Email Boolean FirstDiffusion
+
 
 \section{Contraintes d'integrite}
 

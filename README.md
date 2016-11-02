@@ -1,9 +1,9 @@
 
 # Decisions
-- En anglais car c'est mieux XD
-- Password hashee avec un algoritme efficace 
-- Utiliser le Salt pour hasher les passwords
-- Mettre les hash et les Stalts dans une table separee 
++ En anglais car c'est mieux XD
++ Password hashee avec un algoritme efficace 
++ Utiliser le Salt pour hasher les passwords
++ Mettre les hash et les Stalts dans une table separee 
 (souligner le fait que il serait mieu avoir les hashes dans une
 machine separe)
 - Le type email c'est varchar(320) car https://tools.ietf.org/html/rfc5321.html specifie 64 chars username+ 1 char @ + 255 chars domain name
