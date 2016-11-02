@@ -6,19 +6,16 @@
 + Mettre les hash et les Stalts dans une table separee 
 (souligner le fait que il serait mieu avoir les hashes dans une
 machine separe)
-- Le type email c'est varchar(320) car https://tools.ietf.org/html/rfc5321.html specifie 64 chars username+ 1 char @ + 255 chars domain name
-- Not support for unicode
-- ?? store separately domain names
-- varchar2 instead of varchar https://docs.oracle.com/cd/B28359_01/server.111/b28318/datatype.htm#i3253
-- email unique
-- char(1) avec check in ('Y','N') au lieu de BOOLEAN car il n'est pas 
++ Le type email c'est varchar(320) car https://tools.ietf.org/html/rfc5321.html specifie 64 chars username+ 1 char @ + 255 chars domain name
++ ?? store separately domain names
++ char(1) avec check in ('Y','N') au lieu de BOOLEAN car il n'est pas 
   present sur oracle
-- CHAR(2) for countries car on utilise ISO 3166-1 alpha-2
++ CHAR(2) for countries car on utilise ISO 3166-1 alpha-2
 
 
 
 # Memo
-- Les videos archivee doivent etre deplace dans une autre table (voir mail prof)
++ Les videos archivee doivent etre deplace dans une autre table (voir mail prof)
 - Les contraint d'integrite doivent etre rendu
 
 
@@ -46,21 +43,22 @@ need to use a trigger
 
 # Constraint
 
-- contraint pour les selections d'un utilisateur: il PEUT selectionner
++ contraint pour les selections d'un utilisateur: il PEUT selectionner
   un video qui n'a pas encore ete diffus.
 
-- Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse (Trigger VideoAvailable)
++ Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse (Trigger VideoAvailable)
 
-- Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime (Trigger WaitExpiration)
++ Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime (Trigger WaitExpiration)
 
-- Après une diffusion, une vidéo sera accessible sur le site en replay pendant
++ Après une diffusion, une vidéo sera accessible sur le site en replay pendant
 au moins 7 jours.  (trigger BadExpiration)
 
-- Le temps d'une vue ne peut pas etre > SYSDATE  (DID ! Better application level)
++ Le temps d'une vue ne peut pas etre > SYSDATE  (DID ! Better application level)
 
-- Si il reste du temps: la date de premiere diffusion d'un video ne doit pas
++ Si il reste du temps: la date de premiere diffusion d'un video ne doit pas
   etre superieure la ma date de la premiere diffusion dans la table diffusion (mais
   il peut entre inferieure) (DONE)
 
-- Contraints sur la date de expiration (Trigger ValidView)
++ Contraints sur la date de expiration (Trigger ValidView)
 
+- email unique
