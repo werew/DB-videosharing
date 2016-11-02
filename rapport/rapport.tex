@@ -1,0 +1,81 @@
+\documentclass[twoside,openright,a4paper,11pt,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{emptypage}
+\usepackage{amsmath}
+
+% Utilisation d'url
+\usepackage{url}
+\urlstyle{sf}
+
+% Utilisation d'images, stockées dans le répertoire ./pics/
+\usepackage{graphicx}
+\graphicspath{pics/}
+
+% Définition des marges
+\usepackage{geometry}
+\geometry{
+  left=25mm,
+  right=25mm,
+  top=25mm,
+  bottom=25mm,
+  foot=15mm
+}
+
+\begin{document}
+
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+% La page de garde
+\include{page-garde}
+
+
+% La table des matières
+\parskip=0pt
+\tableofcontents
+
+\newpage
+
+%Start content
+
+\section{Fichiers rendu et usage}
+\subsection{Contenu du rapport}
+\subsection{Contenu de l'archive}
+Apres avoir ouvert l'archive {\it coniglio\_luigi.tar.gz} vous
+trouverez les fichiers suivants:
+
+\begin{itemize}
+\item Ce rapport
+\item Les fichiers {\bf ent-rel.pdf} et {\bf base.pdf} contenant
+      des images representant respectivement le schema entite-association
+      et le modele relationnel de la base.
+\item Le fichier {\bf tables.sql} qui contient le code SQL pour la
+      creatione des toutes les tables de la base.
+\item Dans le fichier {\bf queries.sql} vous trouverez les solutions
+      au cinq requetes faisant l'object de la premiere partie du projet.
+\item Dans le fichier {\bf proc-fun.sql} vous trouverez les procedures
+      et les fonctions PL/SQL demande.
+\item Le fichier {\bf triggers.sql} contiens les code des declancheurs qui
+      etablissent les contraintes dynamiques sur la base.  Ce fichier est divise en
+      deux partie: la premiere dedie aux contraintes dynamique explicitament
+      demande dans la derniere partie du sujet, et une deuxieme partie contennent les
+      contraintes dynamiques que j'ai cree conformenent a la description de la
+      base.
+\item Le fichier {\bf data.sql} contiens diverses donnees permettant de
+      facilement remplir la base.
+\item Les fichier {\bf droptables.sql}
+\end{itemize}
+
+\subsection{Usage}
+Dans l'ar   
+
+
+\section{Description des tables}
+
+\section{Contraintes d'integrite}
+
+
+%End content
+
+\end{document}
