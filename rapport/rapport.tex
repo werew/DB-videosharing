@@ -27,7 +27,7 @@
 \usepackage{color}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{gray}{rgb}{0.8,0.8,0.8}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \lstset{frame=tb,
@@ -58,7 +58,8 @@
 \parskip=0pt
 \tableofcontents
 
-\newpage
+
+\vspace{5cm}
 
 %Start content
 
@@ -143,11 +144,48 @@ description fourni dans le sujet, cette partie du rapport se limitera a fournir
 quelque éclaircissements sur des parties laisse a la "libre interpretation" des
 etudiants.
 
-\subsection{Tables {\it WebUser} et {\it UserPass}}
+\subsection{Noms et contenu des tables}
+
+\begin{table}[h]
+  \centering
+% On paramètre ici le placement du texte dans les cases, en mode paragraphe de 5cm de large dans la case de gauche ("p{5cm}") et automatique avec un alignement à droite dans la case de droite ('r')
+  \begin{tabular}{| p{5cm} | l |}
+    \hline
+    \textbf{Table} & \textbf{Contenu} \\
+    \hline
+    Video & Les videos disponibles\\
+    \hline
+    ArchivedVideo  & Les videos archivee (non plus disponibles)\\
+    \hline
+    WebUser & Profils des utilisateurs \\
+    \hline
+    UserPass & Pot de passe des utilisateurs \\
+    \hline
+    Program & Les emissions \\
+    \hline
+    Category & Les categories disponibles \\
+    \hline
+    UserView & Les visionnages \\
+    \hline
+    UserSelection & Video favoris \\
+    \hline
+    Subscription & Les abbonements des utilisateurs \\
+    \hline
+    Preference & Preferences par categorie \\
+    \hline
+    Diffusion & Diffusions des video \\
+    \hline
+  \end{tabular}
+  \caption{Contenu des tables}
+  \label{tab:tables}
+\end{table}
+
+
+\subsection{Table {\it UserPass}}
 
 Les password des utilisateurs ne sont pas stockees dans la meme table avec les
 autres informations (table {\it WebUser}
-\footnote{Le nom {\it WebUser} derive du fait que let mot {\it User} est reserve dans Oracle:
+\footnote{Le nom {\it WebUser} derive du fait que let mot {\it User} est un mot reserve dans Oracle:
 https://docs.oracle.com/cd/B19306\_01/em.102/b40103/app\_oracle\_reserved\_words.htm}.
 Cet approche valorise l'aspect securite et permet par
 example de differentier les droits sur les tables
@@ -160,18 +198,62 @@ dans le stockage des mots de passe des utilisateurs.
 
 
 \subsection{Types}
-Les choix derrier certains champs suivent des raison bien precises:
+Certaines choix d'implementation relatives aux certaines champs utilise dans la
+base meritent une petite decription:
+
+
 \begin{description}
-\item[Boolean] Un champ de type boolean est code comme etant un caracter (type CHAR
-	\footnote{Le type CHAR a une taille statique}). Les valeurs possibles pour sont
-	'Y' pour {\it vrai} et 'N' pour {\it fausse}.
-\item[Email] L'espace allue pour un champ de type 
-\item[Country] 
+\item[Boolean] - Oracle n'implemente pas le type boolean, pour cette raison il a
+fallu utiliser une autre strategie pour les champs ayant un valeur de ce type.
+Dans ce projet le type boolean est replace par un caracter (type CHAR) ayant
+comme valeurs possibles 'Y' pour {\it vrai} et 'N' pour {\it fausse}.
+
+\item[Email] - En suivant la specification du protocole SMTP
+\footnote{RFC 5321 - https://tools.ietf.org/html/rfc5321.html}
+la taille limite pour un champ contanant une email est de 320 caracteres: 64
+caracteres pour le nom de l'utilisateur + @ + 255 caracteres pour le nom du
+domaine\footnote{Une possibilite, pas implemente dans le travail rendu pour des
+raisons de simplicite , etait celle de stocker les noms de domaines dans une
+table separe pour eviter les redondances.}.
+
+\item[Country] - En suivant les ses codes specifiees dans la norme ISO 3166-1
+alpha-2 il est possible de utiliser seulement deux caracteres pour stocker le
+nom d'un pays: c'est pour cette raison que le type de cet champ est CHAR(2).
+
 \end{description}
 
 
 \section{Contraintes d'integrite}
+En complement aux contraintes d'integrite specifie dans la derniere partie du
+sujet, les contraintes d'integrite suivants ont ete implemente dans la base:
 
+\begin{itemize}
+\item Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse,
+par contre il peut le selectionner (le mettre dans les favoris) par example
+pour un visionnage future.
+
+\item Un utilisateur ne peut pas visionner un video qui a depasse la date de validite
+(meme si il n'a pas encore ete archivee).
+
+\item Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime
+
+\item Comme specifie dans le sujet: {\it "Après une diffusion, une vidéo sera
+accessible sur le site en replay pendant au moins 7 jours"}.
+\footnote{NB: le deuxieme contrainte demande dans le sujet ({\it"Si une diffusion d’une émission est
+ajoutée, les dates de disponibilités seront mises à jour.  La nouvelle date de
+fin de disponibilité sera la date de la dernière diffusion plus 4 jours."}) n'implique
+pas que ce contrainte soit satisfee (p.ex. il ne couvre pas les operation de UPDATE 
+sur la table {\it Video}).}
+
+\item La date (annee) de premiere diffusion d'un video ne doit pas
+etre superieure la date de la premiere diffusion dans la table {\it Diffusion}.
+
+\item Au moment de sa creation, le champ Time d'un visionnage ne peut pas etre superieure
+a la date actuelle (SYSDATE): on interdit les visionnages "dans le futur".
+\footnote{C'est le cas typique d'un contrainte qui pourrait etre ramplace par l'intervention de
+l'application web (cote serveur) dans la choix de la date du visionnage.}
+
+\end{itemize}
 
 %End content
 
