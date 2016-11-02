@@ -2,7 +2,7 @@ SET SERVEROUTPUT ON;
 
 
 
-/* Exercice 1 */
+/***************** Exercise 1 *********************/
 
 CREATE OR REPLACE FUNCTION video2json(vid Video.VideoID%TYPE)
 	RETURN VARCHAR2
@@ -31,24 +31,20 @@ END;
 /
 
 
---TODO REMOVE
-show errors;
 
---TODO UNCOMMENT
---SELECT video2json(VideoID) "JSON" FROM Video;
+/* Execution */
+SELECT video2json(VideoID) "JSON" FROM Video;
 
 
 
 
 
 
+/***************** Exercise 2 *********************/
 
-/* Exercice 2 */
-
-
--- Premiere option
--- Avec un curseur en affichant le texte de l'email directement a l'ecran
--- En utilisant monday comme premier jour de la semaine
+-- Using a cursor to display the text of the email
+-- direclty on the screen and considering the past 
+-- (or current) Monday as the first day of the week
 CREATE OR REPLACE PROCEDURE mk_newsletter_mail
 IS
 	CURSOR comingSoon_curs IS
@@ -81,14 +77,10 @@ BEGIN
 END;
 /
 
---TODO REMOVE
-show errors;
 
---TODO UNCOMMENT
---EXECUTE mk_newsletter_mail;
 
--- Deuxieme optione
--- Sans courseur et en utilisant un parametre de type OUT pour passer le texte de l'email
+-- Without a cursor and using an OUT parameter to
+-- return the text of the mail.
 CREATE OR REPLACE PROCEDURE mk_newsletter_mail2 (email_v OUT VARCHAR2)
 IS
 BEGIN
@@ -115,11 +107,9 @@ BEGIN
 END;
 /
 
---TODO REMOVE
-show errors;
 
---TODO UNCOMMENT
-/*
+/* Execution */
+EXECUTE mk_newsletter_mail;
 DECLARE
 	email_v VARCHAR2(4000);
 BEGIN
@@ -127,7 +117,6 @@ BEGIN
 	dbms_output.put_line(email_v);
 END;
 /
-*/
 
 
 
@@ -135,16 +124,9 @@ END;
 
 
 
+/***************** Exercise 3 *********************/
 
-
-
-
-
-
-
-/* Exercice 3 */
-
-
+-- Just adding one video for each week
 CREATE OR REPLACE PROCEDURE mk_new_episodes
 	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
 IS 
@@ -161,8 +143,6 @@ BEGIN
 	LOOP
 		count_v := count_v + 1;
 
---TODO which number has to be incremented ? 
-
 		INSERT INTO Video (VideoID, Name, Description, ProgramID)
 		VALUES (lastep_v+count_v, 'Episode ' || count_v , 'a venir', prog_a);
 	END LOOP;
@@ -171,9 +151,7 @@ END;
 /
 
 
---TODO REMOVE
-show errors;
-
+-- Add a video and a diffusion for each week
 CREATE OR REPLACE PROCEDURE mk_new_episodes2
 	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
 IS 
@@ -201,11 +179,9 @@ END;
 /
 
 
---TODO REMOVE
-show errors;
-
---TODO UNCOMMENT
---EXECUTE mk_new_episodes(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
+/* Execution */
+EXECUTE mk_new_episodes(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
+EXECUTE mk_new_episodes2(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
 
 
 
@@ -215,12 +191,9 @@ show errors;
 
 
 
+/***************** Exercise 4 *********************/
 
-
-
-
-/* Exercice 4 */
-
+-- Using a cursor and displayung the retult on the screen
 CREATE OR REPLACE PROCEDURE suggestion_list
 	(user_a WebUser.UserID%TYPE)
 IS 
@@ -247,10 +220,8 @@ BEGIN
 END;
 /
 
---TODO REMOVE
-show errors;
 
-
+-- Without a cursor, returning the result
 CREATE OR REPLACE FUNCTION suggestion_list2
 	(user_a WebUser.UserID%TYPE) RETURN VARCHAR2
 IS 
@@ -277,10 +248,7 @@ END;
 /
 
 
---TODO REMOVE
-show errors;
-
-
+-- Using a cursor, returning the result
 CREATE OR REPLACE FUNCTION suggestion_list3
 	(user_a WebUser.UserID%TYPE) RETURN VARCHAR2
 IS 
@@ -312,8 +280,8 @@ BEGIN
 END;
 /
 
---TODO REMOVE
-show errors;
 
-/* TODO UNCOMMENT */
---EXECUTE suggestion_list(2);
+/* Execution */
+EXECUTE suggestion_list(2);
+SELECT suggestion_list2(2) FROM DUAL;
+SELECT suggestion_list3(2) FROM DUAL;
