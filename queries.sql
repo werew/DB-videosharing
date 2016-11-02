@@ -1,6 +1,6 @@
 PROMPT
 PROMPT ***** Requete N. 1 ******************************************************
-PROMPT * Nombre de visionnages de videos par categories de videos, pour les    *
+PROMPT * Nombre de visionnages de vidéos par catégories de vidéos, pour les    *
 PROMPT * visionnages de moins de deux semaines.                                *
 PROMPT *************************************************************************
 
@@ -30,8 +30,8 @@ GROUP BY Category.Name ;
 
 
 PROMPT ***** Requete N. 2 ******************************************************
-PROMPT * Par utilisateur, le nombre d abonnements, de favoris et de videos     *
-PROMPT * visionnees                                                            *
+PROMPT * Par utilisateur, le nombre d’abonnements, de favoris et de vidéos     *
+PROMPT * visionnées.                                                           *
 PROMPT *************************************************************************
 
 SELECT u.UserID "User", 
@@ -77,10 +77,10 @@ ORDER BY u.UserID;
 
 
 PROMPT ***** Requete N. 3 ******************************************************
-PROMPT * Pour chaque video, le nombre de visionnages par des utilisateurs      *
-PROMPT * francais, le nombre de visionnage par des utilisateurs allemand, la   *
-PROMPT * difference entre les deux, tries par valeur absolue de la difference  *
-PROMPT * entre les deux.	     				                               *
+PROMPT * Pour chaque vidéo, le nombre de visionnages par des utilisateurs      *
+PROMPT * français, le nombre de visionnage par des utilisateurs allemands, la  *
+PROMPT * différence entre les deux, triés par valeur absolue de la différence  *
+PROMPT * entre les deux.                                                       *
 PROMPT *************************************************************************
 
 WITH nb_views AS (
@@ -129,9 +129,8 @@ ORDER BY "Difference";
 
 
 PROMPT ***** Requete N. 4 ******************************************************
-PROMPT * Les episodes d emissions qui ont au moins deux fois plus de           * 
-PROMPT * visionnage que la moyenne des visionnages des autres épisode	       *
-PROMPT * del emission.	                                                       *
+PROMPT * Les épisodes d’émissions qui ont au moins deux fois plus de visionnage*
+PROMPT * que la moyenne des visionnages des autres épisodes de l’émission.     *
 PROMPT *************************************************************************
 
 
@@ -159,9 +158,9 @@ WHERE N1.NbViews >= COALESCE(
 
 
 
-PROMPT ***** Requete N. 4 ******************************************************
-PROMPT * Les 10 couples de vidéos apparaissant le plus souvent simuanement     *
-PROMPT * dans un historique de visionnage de l utilisateur. 	               *
+PROMPT ***** Requete N. 5 ******************************************************
+PROMPT * Les 10 couples de vidéos apparaissant le plus souvent simultanément   *
+PROMPT * dans un historique de visionnage d’utilisateur.                       *
 PROMPT *************************************************************************
 
 SELECT * FROM  (
