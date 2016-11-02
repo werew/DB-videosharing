@@ -23,6 +23,29 @@
   foot=15mm
 }
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=SQL,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 \begin{document}
 
 \pagestyle{plain}
@@ -55,20 +78,43 @@ trouverez les fichiers suivants:
 \item Dans le fichier {\bf queries.sql} vous trouverez les solutions
       au cinq requetes faisant l'object de la premiere partie du projet.
 \item Dans le fichier {\bf proc-fun.sql} vous trouverez les procedures
-      et les fonctions PL/SQL demande.
+      et les fonctions PL/SQL demande et des requet qui donnant des 
+      examples d'utilisation.
 \item Le fichier {\bf triggers.sql} contiens les code des declancheurs qui
       etablissent les contraintes dynamiques sur la base.  Ce fichier est divise en
       deux partie: la premiere dedie aux contraintes dynamique explicitament
-      demande dans la derniere partie du sujet, et une deuxieme partie contennent les
-      contraintes dynamiques que j'ai cree conformenent a la description de la
+      demande a la fin du sujet, et une deuxieme partie contennent les
+      des autres contraintes dynamiques cree conformenent a la description de la
       base.
-\item Le fichier {\bf data.sql} contiens diverses donnees permettant de
-      facilement remplir la base.
-\item Les fichier {\bf droptables.sql}
+\item {\bf badqueries.sql} contiens des queries permettant de tester l'efficacite 
+      des contraintes de la base.
+\item Le fichier {\bf data.sql} permet de remplir la base.
+\item Les fichier {\bf droptables.sql} peut etre utilise pour eliminer toutes 
+      les tables de la base.
+\item {\bf makedb.sql} est une raccourcie permettant de creer les tables, les
+      declancheurs et remplire la base en une seule fois.
 \end{itemize}
 
 \subsection{Usage}
-Dans l'ar   
+Utilisez les fichier {\bf makedb.sql} pour creer la base:
+\begin{center}
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @makedb|}
+\end{center}
+Une fois termine la creation de la base vous pouvez proceder a l'execution des
+requetes
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @queries|},
+a la creation et execution des fonctions et procedures PL/SQL
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|},
+ou bien tester les contraintes d'integrite de la base
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @badqueries|}.
+
+\smallbreak
+Dans chacun des ces cas vous serez presente avec un affichage permettant de
+reconnetre sur l'ecran la sortie de chaque requete:
+\begin{lstlisting}
+%TODO insert example
+
+\end{lstlisting}
 
 
 \section{Description des tables}
