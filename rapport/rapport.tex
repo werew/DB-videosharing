@@ -40,7 +40,7 @@
   numbers=none,
   numberstyle=\tiny\color{gray},
   keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
+  %commentstyle=\color{dkgreen},%
   stringstyle=\color{mauve},
   breaklines=true,
   breakatwhitespace=true,
@@ -92,13 +92,17 @@ trouverez les fichiers suivants:
       demande a la fin du sujet, et une deuxieme partie contennent les
       des autres contraintes dynamiques cree conformenent a la description de la
       base.
-\item {\bf badqueries.sql} contiens des queries permettant de tester l'efficacite 
-      des contraintes de la base.
 \item Le fichier {\bf data.sql} permet de remplir la base.
 \item Les fichier {\bf droptables.sql} peut etre utilise pour eliminer toutes 
       les tables de la base.
 \item {\bf makedb.sql} est une raccourcie permettant de creer les tables, les
       declancheurs et remplire la base en une seule fois.
+\item Le fichier {\bf out.txt} contient un example de la sortie genere par 
+      les fichiers {\it makedb.sql, queries.sql, proc-fun.sql}. {\bf ATTENTION} le 
+      contenu de ce fichier a ete genere Jeudi 3 Novembre 2016 sur le serveur Oracle
+      disponible sur la machine {\it osr-etudiant.unistra.fr}: le produit
+      d'une execution dans une autre date pourrait sans doute etre different du 
+      contenu de {\it out.txt}.
 \end{itemize}
 
 \bigbreak
@@ -129,7 +133,18 @@ Dans chacun des ces cas vous serez presente avec un affichage permettant de
 facilement reconnetre sur l'ecran la sortie de chaque requete:
 
 \begin{lstlisting}
-%TODO insert example
+SQL> @queries
+
+***** Requete N. 1 ******************************************************
+* Nombre de visionnages de videos par categories de videos, pour les            *
+* visionnages de moins de deux semaines.                                        *
+*************************************************************************
+
+Category                                    Views
+-------------------------   --------------------------------
+Entertainment                                1
+Science                                      2
+Cinema                                       1
 \end{lstlisting}
 
 Apres avoir termine, utilisez le fichier {\bf droptables.sql} pour supprimer
@@ -144,8 +159,8 @@ description fourni dans le sujet, cette partie du rapport se limitera a fournir
 quelque éclaircissements sur des parties laisse a la "libre interpretation" des
 etudiants.
 
+\newpage
 \subsection{Noms et contenu des tables}
-
 \begin{table}[h]
   \centering
 % On paramètre ici le placement du texte dans les cases, en mode paragraphe de 5cm de large dans la case de gauche ("p{5cm}") et automatique avec un alignement à droite dans la case de droite ('r')
