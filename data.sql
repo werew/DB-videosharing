@@ -29,7 +29,7 @@ INSERT INTO Category (CategoryID, Name)
 INSERT INTO Category (CategoryID, Name)
             VALUES   (1, 'Cinema');
 INSERT INTO Category (CategoryID, Name)
-            VALUES   (2, 'Intertainement');
+            VALUES   (2, 'Entertainment');
 INSERT INTO Category (CategoryID, Name)
             VALUES   (3, 'Science');
 
