@@ -97,6 +97,7 @@ END;
 
 
 /**************** Exercise 4 ***************/
+-- Clock's minutes
 CREATE OR REPLACE TRIGGER CountViews
 AFTER INSERT OR UPDATE ON UserView
 DECLARE
@@ -112,6 +113,27 @@ BEGIN
 END;
 /
 
+-- Any minute
+CREATE OR REPLACE TRIGGER CountViews2
+AFTER INSERT OR UPDATE ON UserView
+DECLARE
+	maxViewsMin_v	INTEGER;
+BEGIN
+    FOR my_row IN (SELECT UserID, MAX(Time) Last
+                   FROM UserView GROUP BY UserID)
+    LOOP
+        SELECT COUNT(UserID) INTO maxViewsMin_v
+        FROM UserView 
+        WHERE UserID = my_row.UserID AND
+              Time  >= my_row.Last - 1/1440; -- Last - One minute
+
+        IF maxViewsMin_v > 3 THEN
+            RAISE_APPLICATION_ERROR(-20200, 'Too many views for minute');	
+        END IF;
+
+    END LOOP;
+END;
+/
 
 
 /************** MY TRIGGERS *******************/
