@@ -4,6 +4,12 @@ SET SERVEROUTPUT ON;
 
 /***************** Exercise 1 *********************/
 
+PROMPT
+PROMPT ******** Exercise 1 ******************************************
+PROMPT * Définir une fonction qui convertit au format json les      *
+PROMPT * informations d’une vidéo                                   *
+PROMPT **************************************************************
+
 CREATE OR REPLACE FUNCTION video2json(vid Video.VideoID%TYPE)
 	RETURN VARCHAR2
 IS 
@@ -41,6 +47,12 @@ SELECT video2json(3) "JSON" FROM DUAL;
 
 
 /***************** Exercise 2 *********************/
+
+PROMPT ******** Exercise 2 ******************************************
+PROMPT * Définir une procédure qui générera un texte initial de la  *
+PROMPT * newsletter en y ajoutant la liste de toutes les sorties de *
+PROMPT * la semaine informations d’une vidéo                        *
+PROMPT **************************************************************
 
 -- Using a cursor to display the text of the email
 -- direclty on the screen and considering the past 
@@ -126,6 +138,14 @@ END;
 
 /***************** Exercise 3 *********************/
 
+PROMPT ******** Exercise 3 ******************************************
+PROMPT * Définir une procédure qui génère N épisodes, un par semaine*
+PROMPT * , entre une date de début et une date de fin indiquées en  *
+PROMPT * paramètre de la procédure. L’incrémentation du numéro      *
+PROMPT * d’épisode partira du dernier épisode dans la base. Le      *
+PROMPT * descriptif de l’épisode sera « à venir ».                  *
+PROMPT **************************************************************
+
 -- Just adding one video for each week
 CREATE OR REPLACE PROCEDURE mk_new_episodes
 	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
@@ -152,6 +172,7 @@ END;
 
 
 -- Add a video and a diffusion for each week
+/*
 CREATE OR REPLACE PROCEDURE mk_new_episodes2
 	(start_a DATE, end_a DATE, prog_a Program.ProgramID%TYPE)
 IS 
@@ -177,11 +198,11 @@ BEGIN
 	
 END;
 /
-
+*/
 
 /* Execution */
 EXECUTE mk_new_episodes(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
-EXECUTE mk_new_episodes2(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
+--EXECUTE mk_new_episodes2(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016', 'DD-MM-YY'),2);
 
 
 
@@ -192,6 +213,13 @@ EXECUTE mk_new_episodes2(TO_DATE('10-DEC-2016', 'DD-MM-YY'),TO_DATE('31-DEC-2016
 
 
 /***************** Exercise 4 *********************/
+
+PROMPT ******** Exercise 4 ******************************************
+PROMPT * Générer la liste des vidéos populaires, conseillées pour   *
+PROMPT * un utilisateur, c’est à dire fonction des catégories de    *
+PROMPT * vidéos qu’il suit.                                         *
+PROMPT **************************************************************
+
 
 -- Using a cursor and displayung the retult on the screen
 CREATE OR REPLACE PROCEDURE suggestion_list
@@ -222,6 +250,7 @@ END;
 
 
 -- Without a cursor, returning the result
+/*
 CREATE OR REPLACE FUNCTION suggestion_list2
 	(user_a WebUser.UserID%TYPE) RETURN VARCHAR2
 IS 
@@ -246,9 +275,10 @@ BEGIN
 	RETURN list_v;
 END;
 /
-
+*/
 
 -- Using a cursor, returning the result
+/*
 CREATE OR REPLACE FUNCTION suggestion_list3
 	(user_a WebUser.UserID%TYPE) RETURN VARCHAR2
 IS 
@@ -279,9 +309,10 @@ BEGIN
 	RETURN list_v;
 END;
 /
+*/
 
 
 /* Execution */
 EXECUTE suggestion_list(2);
-SELECT suggestion_list2(2) FROM DUAL;
-SELECT suggestion_list3(2) FROM DUAL;
+--SELECT suggestion_list2(2) FROM DUAL;
+--SELECT suggestion_list3(2) FROM DUAL;
