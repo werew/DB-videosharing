@@ -81,8 +81,8 @@ trouverez les fichiers suivants:
       relationnel de la base.
 \item Le fichier {\bf tables.sql} qui contient le code SQL pour la création 
       de toutes les tables de la base.
-\item Dans le fichier {\bf queries.sql} vous trouverez les solutions
-      au cinq requetes faisant l'object de la premiere partie du projet.
+\item Dans le fichier {\bf queries.sql} vous trouverez les solutions aux 
+      cinq requêtes faisant l'objet de la première partie du projet.
 \item Dans le fichier {\bf proc-fun.sql} vous trouverez les procédures et 
       les fonctions PL/SQL demandent et des requetés qui donnent des exemples d'utilisation.
 \item Le fichier {\bf triggers.sql} contiens les codes des déclencheurs qui
@@ -102,9 +102,9 @@ trouverez les fichiers suivants:
       d'une execution dans une autre date pourrait sans doute etre different du 
       contenu de {\it out.txt}
       \footnote{Pour visualiser ce fichier je vous conseille de ne pas utiliser
-{\it vim} qui dans ce cas particulier pose quelque probleme d'affichage.
-Utilisez un autre editeur de texte (gedit par example) ou un affichage a
-l'ecran en utilisant la commande {\it cat}}.
+      {\it vim} qui dans ce cas particulier pose quelques problèmes d'affichage.
+      Utilisez un autre éditeur de texte (gedit par exemple) ou un affichage à
+      l'écran en utilisant la commande {\it cat}}.
 \end{itemize}
 
 \bigbreak
@@ -124,19 +124,12 @@ Utilisez le fichier {\bf makedb.sql} pour créer la base:
 \end{center}
 Une fois termine la création de la base vous pouvez procéder à l'exécution des requêtes
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @queries|},
-<<<<<<< HEAD
-à la création et exécution des fonctions et procédures PL/SQL
-\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|},
-ou bien tester les contraintes d'Intégrité de la base
-\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @badqueries|}.
-=======
-ou a la creation et execution des fonctions et procedures PL/SQL
+ou à la création et exécution des fonctions et procédures PL/SQL
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|}.
->>>>>>> f75f6021f84e7325728f1dce385a22229e9fb1c7
 
 \smallbreak
-Dans chacun des ces cas vous serez presente avec un affichage permettant de
-facilement reconnetre sur l'ecran la sortie de chaque requete:
+Dans chacun de ces cas un affichage sera présent permettant de facilement
+reconnaître  sur l'écran la sortie de chaque requête:
 
 \begin{lstlisting}
 SQL> @queries
@@ -153,17 +146,16 @@ Science                                      2
 Cinema                                       1
 \end{lstlisting}
 
-Apres avoir termine, utilisez le fichier {\bf droptables.sql} pour supprimer
-la base de donnees:
+Après avoir terminé, utilisez le fichier {\bf droptables.sql} pour supprimer la base de données:
 \begin{center}
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @droptables|}.
 \end{center}
 
 \section{Description des tables}
-Etant donne que la structure de la base de donnees traduit directement la
-description fourni dans le sujet, cette partie du rapport se limitera a fournir
-quelque éclaircissements sur des parties laisse a la "libre interpretation" des
-etudiants.
+Étant donné que la structure de la base de données traduit directement la
+description fournie dans le sujet, cette partie du rapport se limitera à
+fournir quelques éclaircissements sur des parties laisse a la "libre
+interprétation" des étudiants.
 
 \newpage
 \subsection{Noms et contenu des tables}
@@ -203,10 +195,9 @@ etudiants.
 
 
 \subsection{Table {\it UserPass}}
-
-Les password des utilisateurs ne sont pas stockees dans la meme table avec les
-autres informations (table {\it WebUser}
-\footnote{Le nom {\it WebUser} derive du fait que let mot {\it User} est un mot reserve dans Oracle:
+Les passwords des utilisateurs ne sont pas stockées dans la même table où ils
+sont stockés  avec les autres informations (table {\it WebUser}
+\footnote{Le nom {\it WebUser} dérive du fait que let mot {\it User} est un mot reservé dans Oracle:
 https://docs.oracle.com/cd/B19306\_01/em.102/b40103/app\_oracle\_reserved\_words.htm}.
 Cet approche valorise l'aspect securite et permet par
 example de differentier les droits sur les tables
@@ -224,55 +215,59 @@ base meritent une petite decription:
 
 
 \begin{description}
-\item[Boolean] - Oracle n'implemente pas le type boolean, pour cette raison il a
-fallu utiliser une autre strategie pour les champs ayant un valeur de ce type.
-Dans ce projet le type boolean est replace par un caracter (type CHAR) ayant
-comme valeurs possibles 'Y' pour {\it vrai} et 'N' pour {\it fausse}.
+\item[Boolean] - 
+Oracle n'implémente pas le type boolean, pour cette raison il a fallu utiliser
+une autre stratégie pour les champs ayant une valeur de ce type.  Dans ce
+projet le type boolean est replacé par un caractère (type CHAR) ayant comme
+valeurs possibles "Y" pour {\it vrai} et 'N' pour {\it fausse}.
 
-\item[Email] - En suivant la specification du protocole SMTP
+\item[Email] - En suivant la spécification du protocole SMTP
 \footnote{RFC 5321 - https://tools.ietf.org/html/rfc5321.html}
-la taille limite pour un champ contanant une email est de 320 caracteres: 64
-caracteres pour le nom de l'utilisateur + @ + 255 caracteres pour le nom du
-domaine\footnote{Une possibilite, pas implemente dans le travail rendu pour des
-raisons de simplicite , etait celle de stocker les noms de domaines dans une
-table separe pour eviter les redondances.}.
+la taille limite pour un champ contenant un email est de 320 caractères: 64
+caractères pour le nom de l'utilisateur + @ + 255 caractères pour le nom du
+domaine \footnote{ Une possibilité, pas implémente dans le travail rendu pour
+des raisons de simplicité, était celle de stocker les noms de domaines dans une
+table sépare pour éviter les redondances.}.
 
-\item[Country] - En suivant les ses codes specifiees dans la norme ISO 3166-1
-alpha-2 il est possible de utiliser seulement deux caracteres pour stocker le
-nom d'un pays: c'est pour cette raison que le type de cet champ est CHAR(2).
+\item[Country] - En suivant les ses codes spécifiés dans la norme ISO 3166-1
+alpha-2 il est possible d'utiliser seulement deux caractères pour stocker le
+nom d'un pays: c'est pour cette raison que le type de ce champ est CHAR(2).
 
 \end{description}
 
 \newpage
-\section{Contraintes d'integrite}
-En complement aux contraintes d'integrite specifie dans la derniere partie du
-sujet, les contraintes d'integrite suivants ont ete implemente dans la base:
+\section{Contraintes d'Intégrité} En complément aux contraintes d'Intégrité
+spécifie dans la dernière partie du sujet, les contraintes d'Intégrité
+suivantes ont été implémenté dans la base.
 
 \begin{itemize}
-\item Un utilisateur ne peut pas visionner un video qui n'a pas ete diffuse,
-par contre il peut le selectionner (le mettre dans les favoris) par example
-pour un visionnage future.
+\item Un utilisateur ne peut pas visionner une vidéo qui n'a pas été diffusé,
+par contre il peut le sélectionner (le mettre dans les favoris) par exemple
+pour un visionnage futur.
 
-\item Un utilisateur ne peut pas visionner un video qui a depasse la date de validite
-(meme si il n'a pas encore ete archivee).
+\item Un utilisateur ne peut pas visionner une vidéo qui a dépassé la date de
+validité (même s'il n'a pas encore été archivée).
 
-\item Si la date de disponibilite n'est pas passe, un video ne peut pas etre supprime
+\item Si la date de disponibilité n'est pas passée, une vidéo ne peut pas être supprimée
 
-\item Comme specifie dans le sujet: {\it "Après une diffusion, une vidéo sera
+\item Comme spécifie le sujet: {\it "Après une diffusion, une vidéo sera
 accessible sur le site en replay pendant au moins 7 jours"}.
-\footnote{NB: le deuxieme contrainte demande dans le sujet ({\it"Si une diffusion d’une émission est
+\footnote{NB: la deuxième contrainte demande dans le sujet ({\it"Si une diffusion d’une émission est
 ajoutée, les dates de disponibilités seront mises à jour.  La nouvelle date de
-fin de disponibilité sera la date de la dernière diffusion plus 4 jours."}) n'implique
-pas que ce contrainte soit satisfee (p.ex. il ne couvre pas les operation de UPDATE 
-sur la table {\it Video}).}
+fin de disponibilité sera la date de la dernière diffusion plus 4 jours."})
+n'implique pas que cette contrainte soit satisfaite (p.ex. il ne couvre pas les
+opérations d'UPDATE sur la table {\it Video}).}
 
-\item La date (annee) de premiere diffusion d'un video ne doit pas
-etre superieure la date de la premiere diffusion dans la table {\it Diffusion}.
+\item La date (année) de première diffusion d'une vidéo ne doit pas être
+supérieure la date de la première diffusion dans la table {\it Diffusion}.
 
-\item Au moment de sa creation, le champ Time d'un visionnage ne peut pas etre superieure
-a la date actuelle (SYSDATE): on interdit les visionnages "dans le futur".
-\footnote{C'est le cas typique d'un contrainte qui pourrait etre ramplace par l'intervention de
-l'application web (cote serveur) dans la choix de la date du visionnage.}
+\item  Au moment de sa création, le champ Time d'un visionnage ne peut pas être
+supérieure à la date actuelle (SYSDATE): on interdit les visionnages "dans le
+futur".
+
+\footnote{C'est le cas typique d'une contrainte qui pourrait être remplacé par
+l'intervention de l'application web (côté serveur) dans le choix de la date du
+visionnage.}
 
 \end{itemize}
 
