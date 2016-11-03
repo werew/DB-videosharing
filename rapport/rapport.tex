@@ -63,65 +63,63 @@
 
 %Start content
 
-\section{Fichiers rendu et usage}
+\section{Fichiers rendus et usage}
 \subsection{Contenu du rapport}
-L'objectif de ce rapport est d'abord celui de illustrer la structure de la base
-de donnees et en particulier les choix qui ont ete prises lors de
-l'implementation. Pour accelerer/simplifier l'utilisation du travail rendu, la
-partie initial de ce rapport decrit le contenu des fichiers et leurs usage.
+L'objectif de ce rapport est d'abord celui d'illustrer la structure de la base
+de données et en particulier les choix qui ont été prises lors de
+l'implémentation. Pour accelerer/simplifier l'utilisation du travail rendu, la
+partie initiale de ce rapport décrit le contenu des fichiers et leur usage.
 
 \subsection{Contenu de l'archive}
-Apres avoir ouvert l'archive {\it coniglio\_luigi.tar.gz} vous
+Après avoir ouvert l'archive {\it coniglio\_luigi.tar.gz} vous
 trouverez les fichiers suivants:
 \smallbreak
 \begin{itemize}
 \item Ce rapport
-\item Les fichiers {\bf ent-rel.pdf} et {\bf base.pdf} contenant
-      des images representant respectivement le schema entite-association
-      et le modele relationnel de la base.
-\item Le fichier {\bf tables.sql} qui contient le code SQL pour la
-      creatione des toutes les tables de la base.
-\item Dans le fichier {\bf queries.sql} vous trouverez les solutions
-      au cinq requetes faisant l'object de la premiere partie du projet.
-\item Dans le fichier {\bf proc-fun.sql} vous trouverez les procedures
-      et les fonctions PL/SQL demande et des requet qui donnant des 
-      examples d'utilisation.
-\item Le fichier {\bf triggers.sql} contiens les code des declancheurs qui
-      etablissent les contraintes dynamiques sur la base.  Ce fichier est divise en
-      deux partie: la premiere dedie aux contraintes dynamique explicitament
-      demande a la fin du sujet, et une deuxieme partie contennent les
-      des autres contraintes dynamiques cree conformenent a la description de la
-      base.
-\item {\bf badqueries.sql} contiens des queries permettant de tester l'efficacite 
+\item Les fichiers {\bf ent-rel.pdf} et {\bf base.pdf} contenant des images
+      représentant respectivement le schéma entité-association et le modèle
+      relationnel de la base.
+\item Le fichier {\bf tables.sql} qui contient le code SQL pour la création 
+      de toutes les tables de la base.
+\item Dans le fichier {\bf queries.sql} vous trouverez les requêtes demandées
+      dans la première partie du sujet.
+\item Dans le fichier {\bf proc-fun.sql} vous trouverez les procédures et 
+      les fonctions PL/SQL demandent et des requetés qui donnent des exemples d'utilisation.
+\item Le fichier {\bf triggers.sql} contiens les codes des déclencheurs qui
+      établissent les contraintes dynamiques sur la base. Ce fichier est divisé en
+      deux parties: la première dédié aux contraintes dynamiques explicitement
+      demande a la fin du sujet, et une deuxième partie contiennent les dés autres
+      contraints dynamiques créés conformément à la description de la base.
+
+\item {\bf badqueries.sql} contiens des queries permettant de tester l'efficacité 
       des contraintes de la base.
 \item Le fichier {\bf data.sql} permet de remplir la base.
-\item Les fichier {\bf droptables.sql} peut etre utilise pour eliminer toutes 
+\item Les fichier {\bf droptables.sql} peut-être utilise pour éliminer toutes 
       les tables de la base.
-\item {\bf makedb.sql} est une raccourcie permettant de creer les tables, les
-      declancheurs et remplire la base en une seule fois.
+\item {\bf makedb.sql} est une raccourcie permettant de créer les tables, les 
+      déclencheurs et remplir la base en une seule fois.
 \end{itemize}
 
 \bigbreak
-La plupart du temps vous trouverez plusieurs solutions pour les requetes,
-fonctions, procedures et les declancheurs (traduisent les contraintes) demandes
-dans les sujet. Chaque version represente une implementation differente du
-travail a effectuer, un autre moyen de resoudre le probleme  (p.ex. avec
-curseur / sans curseur, avec des jointures / avec des sous requetes ...).
-Chaque implementation est accompagnee par une petite descrition qui en
-documente les caracteristiques.  Pour des raisons de clarte, les solutions
-apres la premiere sont mises en commentaire. 
+La plupart du temps vous trouverez plusieurs solutions pour les requêtes,
+fonctions, procédures et les déclencheurs (traduisent les contraintes) demandes
+dans le sujet. Chaque version représente une implémentation différente du
+travail à effectuer, un autre moyen de résoudre le problème (p .ex. avec
+curseur / sans curseur, avec des jointures / avec des sous-requêtes ...).
+Chaque implémentation est accompagnée par une petite description qui en
+documente les caractéristiques. Pour des raisons de clarté, les solutions après
+la première sont mises en commentaire.
 
 \subsection{Usage}
-Utilisez les fichier {\bf makedb.sql} pour creer la base:
+Utilisez le fichier {\bf makedb.sql} pour créer la base:
 \begin{center}
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @makedb|}
 \end{center}
-Une fois termine la creation de la base vous pouvez proceder a l'execution des
-requetes
+Une fois termine la création de la base vous pouvez procéder à l'exécution des requêtes
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @queries|},
-a la creation et execution des fonctions et procedures PL/SQL
+à la création et exécution des fonctions et procédures PL/SQL
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|},
-ou bien tester les contraintes d'integrite de la base
+ou bien tester les contraintes d'Intégrité de la base
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @badqueries|}.
 
 \smallbreak
