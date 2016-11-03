@@ -1,0 +1,326 @@
+SQL> @queries
+
+***** Requete N. 1 ******************************************************
+* Nombre de visionnages de vidéos par catégories de vidéos, pour les    *
+* visionnages de moins de deux semaines.                *
+*************************************************************************
+
+Category                              Views
+------------------------------------------------------------ ----------
+Entertainment                                 4
+Cinema                                    8
+
+***** Requete N. 2 ******************************************************
+* Par utilisateur, le nombre d’abonnements, de favoris et de vidéos     *
+* visionnées.                                                           *
+*************************************************************************
+
+      User Subscriptions Selections  Views
+---------- ------------- ---------- ----------
+     0         0      2      2
+     1         2      0      5
+     2         1      0      6
+     3         1      1      2
+     4         0      2      4
+
+***** Requete N. 3 ******************************************************
+* Pour chaque vidéo, le nombre de visionnages par des utilisateurs      *
+* français, le nombre de visionnage par des utilisateurs allemands, la  *
+* différence entre les deux, triés par valeur absolue de la différence  *
+* entre les deux.                           *
+*************************************************************************
+
+   VIDEOID   Views FR   Views DE Difference
+---------- ---------- ---------- ----------
+     7      0          0      0
+     8      0          0      0
+     9      0          0      0
+     5      1          2      1
+     2      0          1      1
+     6      1          0      1
+     1      1          0      1
+     4      0          1      1
+     0      2          1      1
+     3      1          3      2
+
+10 rows selected.
+
+***** Requete N. 4 ******************************************************
+* Les épisodes d’émissions qui ont au moins deux fois plus de visionnage*
+* que la moyenne des visionnages des autres épisodes de l’émission.     *
+*************************************************************************
+
+   VIDEOID
+----------
+     6
+     3
+     4
+     0
+     5
+
+***** Requete N. 5 ******************************************************
+* Les 10 couples de vidéos apparaissant le plus souvent simultanément   *
+* dans un historique de visionnage d’utilisateur.                       *
+*************************************************************************
+
+    VIDEO1     VIDEO2
+---------- ----------
+     3      5
+     3      6
+     0      1
+     0      2
+     0      3
+     0      5
+     0      6
+     2      3
+     2      6
+     3      4
+
+10 rows selected.
+
+SQL> @proc-fun
+
+******** Exercise 1 ******************************************
+* Définir une fonction qui convertit au format json les      *
+* informations d’une vidéo                                   *
+**************************************************************
+
+Function created.
+
+
+JSON
+--------------------------------------------------------------------------------
+{ "videoid": 3, "name": "Life is Beautiful", "description": "A Jewish librarian
+protecting his son during Holocaust", "length": 90, "country": "IT", "firstdiffu
+sion": "", "format": "mp4", "multilang": true, "expiration": "27-NOV-16", "progr
+amid": 1 }
+
+
+******** Exercise 2 ******************************************
+* Définir une procédure qui générera un texte initial de la  *
+* newsletter en y ajoutant la liste de toutes les sorties de *
+* la semaine informations d’une vidéo                        *
+**************************************************************
+
+Procedure created.
+
+Hello, have you seen the new videos of this week ?
+Chek it out!
+
+Futurama - Episode - 4: We all love Zoidberg
+Futurama - Episode - 5: Welcome to the future
+
+See you soon on www.fantasticvideos.com!
+
+PL/SQL procedure successfully completed.
+
+******** Exercise 3 ******************************************
+* Définir une procédure qui génère N épisodes, un par semaine*
+* , entre une date de début et une date de fin indiquées en  *
+* paramètre de la procédure. L’incrémentation du numéro      *
+* d’épisode partira du dernier épisode dans la base. Le      *
+* descriptif de l’épisode sera « à venir ».                  *
+**************************************************************
+
+Procedure created.
+
+
+PL/SQL procedure successfully completed.
+
+******** Exercise 4 ******************************************
+* Générer la liste des vidéos populaires, conseillées pour   *
+* un utilisateur, c’est à dire fonction des catégories de    *
+* vidéos qu’il suit.                                         *
+**************************************************************
+
+Procedure created.
+
+Futurama - Episode - 2: Fry meets his new roommate
+The late show - The story of J.K. Scruber: All you need to know about J.K.
+Scruber
+Futurama - Episode - 1: Space Pilot 3000
+
+PL/SQL procedure successfully completed.
+
+SQL> @test-triggers
+***********************************************
+*      TRIGGER: MaxUserSelections         *
+***********************************************
+
+Procedure created.
+
+--------> Generating 300 user selections...
+BEGIN Test_MaxUserSelections; END;
+
+*
+ERROR at line 1:
+ORA-20200: Too many selections
+ORA-06512: at "CONIGLIO.MAXUSERSELECTIONS", line 8
+ORA-04088: error during execution of trigger 'CONIGLIO.MAXUSERSELECTIONS'
+ORA-06512: at "CONIGLIO.TEST_MAXUSERSELECTIONS", line 18
+ORA-06512: at line 1
+
+
+***********************************************
+*      TRIGGER: UpdateExpiration          *
+***********************************************
+
+Procedure created.
+
+--------> VideoID: 0 Expiration: 29-NOV-16
+--------> Adding diffusion the: 15-APR-44
+--------> VideoID: 0 Expiration: 29-APR-44
+
+PL/SQL procedure successfully completed.
+
+***********************************************
+*      TRIGGER: ArchiveVideo              *
+***********************************************
+
+Procedure created.
+
+--------> CREATING VIDEO N.13
+--------> Nb of archived videos: 0
+--------> DELETING VIDEO N.13
+--------> Nb of archived videos: 1
+
+PL/SQL procedure successfully completed.
+
+***********************************************
+*      TRIGGER: CountViews            *
+***********************************************
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+INSERT INTO UserView (UserID, VideoID, Time)
+            *
+ERROR at line 1:
+ORA-20200: Too many views for minute
+ORA-06512: at "CONIGLIO.COUNTVIEWS2", line 13
+ORA-04088: error during execution of trigger 'CONIGLIO.COUNTVIEWS2'
+
+
+***********************************************
+*      TRIGGER: ValidView             *
+***********************************************
+
+Procedure created.
+
+----------> Whatch a video into the future
+BEGIN Test_ValidView_Future; END;
+
+*
+ERROR at line 1:
+ORA-20200: Cannot watch a video in the future
+ORA-06512: at "CONIGLIO.VALIDVIEW", line 6
+ORA-04088: error during execution of trigger 'CONIGLIO.VALIDVIEW'
+ORA-06512: at "CONIGLIO.TEST_VALIDVIEW_FUTURE", line 8
+ORA-06512: at line 1
+
+
+
+Procedure created.
+
+----------> Whatch an expired video
+BEGIN Test_ValidView_Expired; END;
+
+*
+ERROR at line 1:
+ORA-20200: The video has already expired
+ORA-06512: at "CONIGLIO.VALIDVIEW", line 13
+ORA-04088: error during execution of trigger 'CONIGLIO.VALIDVIEW'
+ORA-06512: at "CONIGLIO.TEST_VALIDVIEW_EXPIRED", line 11
+ORA-06512: at line 1
+
+
+
+Procedure created.
+
+----------> Whatch a not available video
+BEGIN Test_ValidView_NotAv; END;
+
+*
+ERROR at line 1:
+ORA-20200: Video not yet available
+ORA-06512: at "CONIGLIO.VALIDVIEW", line 20
+ORA-04088: error during execution of trigger 'CONIGLIO.VALIDVIEW'
+ORA-06512: at "CONIGLIO.TEST_VALIDVIEW_NOTAV", line 10
+ORA-06512: at line 1
+
+
+***********************************************
+*      TRIGGER: WaitExpiration            *
+***********************************************
+
+Procedure created.
+
+----------> Delete a video not yet expired
+BEGIN Test_WaitExpiration; END;
+
+*
+ERROR at line 1:
+ORA-20200: Video not yet expired
+ORA-06512: at "CONIGLIO.WAITEXPIRATION", line 3
+ORA-04088: error during execution of trigger 'CONIGLIO.WAITEXPIRATION'
+ORA-06512: at "CONIGLIO.TEST_WAITEXPIRATION", line 10
+ORA-06512: at line 1
+
+
+***********************************************
+*      TRIGGER: BadExpiration             *
+***********************************************
+
+Procedure created.
+
+----------> Video which expires before 7 days after the last diffusion
+BEGIN Test_BadExpiration; END;
+
+*
+ERROR at line 1:
+ORA-20200: New expiration is too early
+ORA-06512: at "CONIGLIO.BADEXPIRATION", line 10
+ORA-04088: error during execution of trigger 'CONIGLIO.BADEXPIRATION'
+ORA-06512: at "CONIGLIO.TEST_BADEXPIRATION", line 11
+ORA-06512: at line 1
+
+
+***********************************************
+*      TRIGGER: FirstDiffusionCheck       *
+***********************************************
+
+Procedure created.
+
+----------> Adding diffusion previous to FirstDiffusion
+BEGIN Test_FirstDiffusionCheck; END;
+
+*
+ERROR at line 1:
+ORA-20200: Time is previous to first diffusion
+ORA-06512: at "CONIGLIO.FIRSTDIFFUSIONCHECK", line 8
+ORA-04088: error during execution of trigger 'CONIGLIO.FIRSTDIFFUSIONCHECK'
+ORA-06512: at "CONIGLIO.TEST_FIRSTDIFFUSIONCHECK", line 10
+ORA-06512: at line 1
+
+
+***********************************************
+*      TRIGGER: VideoWasDiffused          *
+***********************************************
+
+Procedure created.
+
+----------> FirstDiffusion previous to the first entry in the table diffusion
+BEGIN Test_VideoWasDiffused; END;
+
+*
+ERROR at line 1:
+ORA-20200: Video was already diffused
+ORA-06512: at "CONIGLIO.VIDEOWASDIFFUSED", line 9
+ORA-04088: error during execution of trigger 'CONIGLIO.VIDEOWASDIFFUSED'
+ORA-06512: at "CONIGLIO.TEST_VIDEOWASDIFFUSED", line 11
+ORA-06512: at line 1
