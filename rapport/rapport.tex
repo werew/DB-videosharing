@@ -98,11 +98,15 @@ trouverez les fichiers suivants:
 \item {\bf makedb.sql} est une raccourcie permettant de creer les tables, les
       declancheurs et remplire la base en une seule fois.
 \item Le fichier {\bf out.txt} contient un example de la sortie genere par 
-      les fichiers {\it makedb.sql, queries.sql, proc-fun.sql}. {\bf ATTENTION} le 
+      les fichiers {\it makedb.sql, queries.sql et proc-fun.sql}. {\bf ATTENTION} le 
       contenu de ce fichier a ete genere Jeudi 3 Novembre 2016 sur le serveur Oracle
       disponible sur la machine {\it osr-etudiant.unistra.fr}: le produit
       d'une execution dans une autre date pourrait sans doute etre different du 
-      contenu de {\it out.txt}.
+      contenu de {\it out.txt}
+      \footnote{Pour visualiser ce fichier je vous conseille de ne pas utiliser
+{\it vim} qui dans ce cas particulier pose quelque probleme d'affichage.
+Utilisez un autre editeur de texte (gedit par example) ou un affichage a
+l'ecran en utilisant la commande {\it cat}}.
 \end{itemize}
 
 \bigbreak
@@ -112,8 +116,8 @@ dans les sujet. Chaque version represente une implementation differente du
 travail a effectuer, un autre moyen de resoudre le probleme  (p.ex. avec
 curseur / sans curseur, avec des jointures / avec des sous requetes ...).
 Chaque implementation est accompagnee par une petite descrition qui en
-documente les caracteristiques.  Pour des raisons de clarte, les solutions
-apres la premiere sont mises en commentaire. 
+documente les caracteristiques.  Pour des raisons de clarte a l'execution, les
+solutions apres la premiere sont mises en commentaire. 
 
 \subsection{Usage}
 Utilisez les fichier {\bf makedb.sql} pour creer la base:
@@ -123,10 +127,8 @@ Utilisez les fichier {\bf makedb.sql} pour creer la base:
 Une fois termine la creation de la base vous pouvez proceder a l'execution des
 requetes
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @queries|},
-a la creation et execution des fonctions et procedures PL/SQL
-\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|},
-ou bien tester les contraintes d'integrite de la base
-\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @badqueries|}.
+ou a la creation et execution des fonctions et procedures PL/SQL
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|}.
 
 \smallbreak
 Dans chacun des ces cas vous serez presente avec un affichage permettant de
@@ -237,7 +239,7 @@ nom d'un pays: c'est pour cette raison que le type de cet champ est CHAR(2).
 
 \end{description}
 
-
+\newpage
 \section{Contraintes d'integrite}
 En complement aux contraintes d'integrite specifie dans la derniere partie du
 sujet, les contraintes d'integrite suivants ont ete implemente dans la base:
