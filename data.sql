@@ -71,108 +71,75 @@ INSERT INTO Video (VideoID, Name, Description, Length, Country, FirstDiffusion, 
             VALUES (9, 'Episode - 5', 'Welcome to the future', 25, 'US', NULL, 'ogg', 'Y', 3);
 
 -- Diffusions
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (0, TO_DATE('11-JAN-2015 15:30', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (0, TO_DATE('12-JAN-2017 15:30', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (0, TO_DATE('13-JAN-2017 15:30', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (1, TO_DATE('2-FEB-2016 20:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (1, TO_DATE('5-NOV-2016 20:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (2, TO_DATE('5-NOV-2016 20:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (2, TO_DATE('1-JAN-2016 8:20', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (2, TO_DATE('15-JAN-2017 8:20', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (2, TO_DATE('15-JAN-2017 20:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (3, TO_DATE('17-JAN-2016 21:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (4, TO_DATE('2-NOV-2014 00:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (4, TO_DATE('2-NOV-2016 00:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (5, TO_DATE('12-JAN-2016 11:45', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (5, TO_DATE('12-JAN-2017 11:45', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (5, TO_DATE('4-NOV-2016 11:45', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (6, TO_DATE('20-NOV-2015 11:45', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (6, TO_DATE('20-NOV-2016 11:45', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (7, TO_DATE('5-NOV-2016 12:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (8, TO_DATE('6-NOV-2016 12:00', 'DD-MM-YY HH24:MI'));
-INSERT INTO Diffusion (VideoID, Time)
-            VALUES    (9, TO_DATE('9-OCT-2019 12:00', 'DD-MM-YY HH24:MI'));
+INSERT INTO Diffusion (VideoID, Time) VALUES (0, SYSDATE+12);
+INSERT INTO Diffusion (VideoID, Time) VALUES (0, SYSDATE-84);
+INSERT INTO Diffusion (VideoID, Time) VALUES (1, SYSDATE+55);
+INSERT INTO Diffusion (VideoID, Time) VALUES (1, SYSDATE-60);
+INSERT INTO Diffusion (VideoID, Time) VALUES (2, SYSDATE-23);
+INSERT INTO Diffusion (VideoID, Time) VALUES (2, SYSDATE+2);
+INSERT INTO Diffusion (VideoID, Time) VALUES (2, SYSDATE-8);
+INSERT INTO Diffusion (VideoID, Time) VALUES (2, SYSDATE+9);
+INSERT INTO Diffusion (VideoID, Time) VALUES (3, SYSDATE+10);
+INSERT INTO Diffusion (VideoID, Time) VALUES (3, SYSDATE-32);
+INSERT INTO Diffusion (VideoID, Time) VALUES (4, SYSDATE-74);
+INSERT INTO Diffusion (VideoID, Time) VALUES (4, SYSDATE+33);
+INSERT INTO Diffusion (VideoID, Time) VALUES (5, SYSDATE);
+INSERT INTO Diffusion (VideoID, Time) VALUES (5, SYSDATE+12);
+INSERT INTO Diffusion (VideoID, Time) VALUES (5, SYSDATE+32);
+INSERT INTO Diffusion (VideoID, Time) VALUES (5, SYSDATE-32);
+INSERT INTO Diffusion (VideoID, Time) VALUES (6, SYSDATE+10);
+INSERT INTO Diffusion (VideoID, Time) VALUES (6, SYSDATE-36);
+INSERT INTO Diffusion (VideoID, Time) VALUES (8, SYSDATE);
+INSERT INTO Diffusion (VideoID, Time) VALUES (8, SYSDATE+19);
+INSERT INTO Diffusion (VideoID, Time) VALUES (8, SYSDATE+20);
+INSERT INTO Diffusion (VideoID, Time) VALUES (8, SYSDATE+83);
+INSERT INTO Diffusion (VideoID, Time) VALUES (9, SYSDATE);
+INSERT INTO Diffusion (VideoID, Time) VALUES (9, SYSDATE+29);
+INSERT INTO Diffusion (VideoID, Time) VALUES (9, SYSDATE+55);
 
 
 -- Subscriptions
-INSERT INTO Subscription (UserID, ProgramID)
-            VALUES       (1, 3);
-INSERT INTO Subscription (UserID, ProgramID)
-            VALUES       (1, 1);
-INSERT INTO Subscription (UserID, ProgramID)
-            VALUES       (2, 0);
-INSERT INTO Subscription (UserID, ProgramID)
-            VALUES       (3, 3);
+INSERT INTO Subscription (UserID, ProgramID) VALUES (1, 3);
+INSERT INTO Subscription (UserID, ProgramID) VALUES (1, 1);
+INSERT INTO Subscription (UserID, ProgramID) VALUES (2, 0);
+INSERT INTO Subscription (UserID, ProgramID) VALUES (3, 3);
 
 -- User selections
-INSERT INTO UserSelection (UserID, VideoID)
-            VALUES        (0, 4);
-INSERT INTO UserSelection (UserID, VideoID)
-            VALUES        (0, 5);
-INSERT INTO UserSelection (UserID, VideoID)
-            VALUES        (3, 0);
-INSERT INTO UserSelection (UserID, VideoID)
-            VALUES        (4, 3);
-INSERT INTO UserSelection (UserID, VideoID)
-            VALUES        (4, 2);
+INSERT INTO UserSelection (UserID, VideoID) VALUES  (0, 4);
+INSERT INTO UserSelection (UserID, VideoID) VALUES  (0, 5);
+INSERT INTO UserSelection (UserID, VideoID) VALUES  (3, 0);
+INSERT INTO UserSelection (UserID, VideoID) VALUES  (4, 3);
+INSERT INTO UserSelection (UserID, VideoID) VALUES  (4, 2);
 
 -- User views
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (0, 0, TO_DATE('13-JAN-2016 15:30:32', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (0, 4, TO_DATE('2-NOV-2016 15:30:59', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (1, 2, TO_DATE('2-NOV-2016 20:23:21', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (2, 4, TO_DATE('1-NOV-2016 8:20:45', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (2, 2, TO_DATE('13-JAN-2016 8:26:39', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (2, 5, TO_DATE('02-MAR-2016 12:09:10', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (2, 5, TO_DATE('01-NOV-2016 9:23:32', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 2, TO_DATE('17-JAN-2016 8:41:26', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 3, TO_DATE('29-JAN-2016 3:15:41', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 1, TO_DATE('02-FEB-2016 22:29:11', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 5, TO_DATE('04-FEB-2016 12:51:33', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 1, TO_DATE('11-MAR-2016 10:37:19', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 6, TO_DATE('11-MAR-2016 11:23:38', 'DD-MM-YY HH24:MI:SS'));
-INSERT INTO UserView (UserID, VideoID, Time)
-            VALUES   (3, 2, TO_DATE('11-MAR-2016 11:56:24', 'DD-MM-YY HH24:MI:SS'));
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (0, 0, SYSDATE-22);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (0, 1, SYSDATE-23);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (1, 2, SYSDATE-3);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (1, 2, SYSDATE-2);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (1, 3, SYSDATE-3);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (1, 3, SYSDATE-32);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (1, 6, SYSDATE-3);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (2, 3, SYSDATE-8);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (2, 3, SYSDATE-2);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (2, 3, SYSDATE-7);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (2, 4, SYSDATE-73);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (2, 5, SYSDATE-9);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (2, 5, SYSDATE-3);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (3, 0, SYSDATE-83);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (3, 2, SYSDATE-7);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (4, 0, SYSDATE-12);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (4, 3, SYSDATE-11);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (4, 5, SYSDATE-28);
+INSERT INTO UserView (UserID, VideoID, Time) VALUES (4, 6, SYSDATE-29);
 
 
 -- Preferences 
-INSERT INTO Preference (UserID, CategoryID)
-            VALUES     (0,2);
-INSERT INTO Preference (UserID, CategoryID)
-            VALUES     (2,3);
-INSERT INTO Preference (UserID, CategoryID)
-            VALUES     (4,2);
+INSERT INTO Preference (UserID, CategoryID) VALUES (0,2);
+INSERT INTO Preference (UserID, CategoryID) VALUES (2,0);
+INSERT INTO Preference (UserID, CategoryID) VALUES (2,2);
+INSERT INTO Preference (UserID, CategoryID) VALUES (4,1);
+INSERT INTO Preference (UserID, CategoryID) VALUES (4,2);
+INSERT INTO Preference (UserID, CategoryID) VALUES (4,3);
 
 
 
