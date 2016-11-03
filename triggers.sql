@@ -1,6 +1,6 @@
 SET SERVEROUTPUT ON;
 
-/* Exercice 1 */
+/**************** Exercise 1 ***************/
 
 CREATE OR REPLACE TRIGGER MaxUserSelections
 AFTER INSERT OR UPDATE ON UserSelection
@@ -16,39 +16,10 @@ BEGIN
 END;
 /
 
-show errors;
 
 
-/**
- * Version naive: pose des problemes si la table est en train
- *                de muter (p.ex. dans les cas d'un update
- *		  sur plusieurs lignes )
- */
-/*
-CREATE OR REPLACE TRIGGER MaxUserSelectionsNaive
-BEFORE INSERT OR UPDATE ON UserSelection
-FOR EACH ROW
-DECLARE
-	nbselections_v 	INTEGER;
-BEGIN
-	SELECT COUNT(*) INTO nbselections_v
-		FROM UserSelection
-		WHERE UserID = :new.UserID;
-	IF nbselections_v >= 300 THEN
-		RAISE_APPLICATION_ERROR(-20200, 'Too many selections');	
-	END IF;
-END;
-/
-
-show errors;
-
-*/
-
-
-
-/* Exercice 2 */
---TODO select for update
-/* Met a jour toutes les dates de disponibilite a chaque UPDATE/INSERT */
+/**************** Exercise 2 ***************/
+-- Update all videos
 CREATE OR REPLACE TRIGGER UpdateExpiration
 AFTER INSERT OR UPDATE ON Diffusion
 DECLARE
@@ -64,13 +35,7 @@ END;
 /
 
 
-show errors;
-
-
-/* Met a jour chaque les dates de disponibilite par rapport
-   a les diffusions ajoute/mises jour. 
- */
-
+-- Update only related videos
 /*
 CREATE OR REPLACE TRIGGER UpdateExpiration
 AFTER INSERT OR UPDATE ON Diffusion
@@ -88,14 +53,13 @@ BEGIN
 END;
 /
 
-show errors; 
-
-
 */
 
 
 
-/* Exercice 3 */
+
+/**************** Exercise 3 ***************/
+
 CREATE OR REPLACE TRIGGER ArchiveVideo
 AFTER DELETE ON Video
 FOR EACH ROW
@@ -115,7 +79,6 @@ BEGIN
 END;
 /
 
-show errors;
 
 CREATE OR REPLACE TRIGGER ErasePrograms
 AFTER DELETE ON Video
@@ -132,11 +95,8 @@ END;
 /
 
 
-show errors;
 
-
-
-/* Exercice 4 */
+/**************** Exercise 4 ***************/
 CREATE OR REPLACE TRIGGER CountViews
 AFTER INSERT OR UPDATE ON UserView
 DECLARE
@@ -152,9 +112,9 @@ BEGIN
 END;
 /
 
-show errors;
 
-/************** MY CONTRAINTS *******************/
+
+/************** MY TRIGGERS *******************/
 
 CREATE OR REPLACE TRIGGER ValidView
 BEFORE INSERT OR UPDATE ON UserView
@@ -184,9 +144,6 @@ END;
 /
 
 
-show errors;
-
-
 CREATE OR REPLACE TRIGGER WaitExpiration
 BEFORE DELETE ON Video
 FOR EACH ROW
@@ -196,9 +153,6 @@ BEGIN
 	END IF;
 END;
 /
-
-
-show errors;
 
 
 CREATE OR REPLACE TRIGGER BadExpiration
@@ -220,11 +174,6 @@ END;
 /
 
 
-show errors;
-
-
-
-
 CREATE OR REPLACE TRIGGER FirstDiffusionCheck
 BEFORE INSERT OR UPDATE ON Diffusion
 FOR EACH ROW
@@ -239,10 +188,6 @@ BEGIN
 	END IF;
 END;
 /
-
-
-show errors;
-
 
 
 CREATE OR REPLACE TRIGGER VideoWasDiffused
@@ -261,7 +206,4 @@ BEGIN
 	END IF;
 END;
 /
-
-
-show errors;
 
