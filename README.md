@@ -16,19 +16,19 @@ machine separe)
 
 # Memo
 + Les videos archivee doivent etre deplace dans une autre table (voir mail prof)
-- Les contraint d'integrite doivent etre rendu
++ Les contraint d'integrite doivent etre rendu
 
 
 #TODO
 
-- Fix Name in entity User
++ Fix Name in entity User
 
 - Create a file to show all the constraints and 
   some other actions. Need to print everything on the screen
 
 - Create documentation
 
-- Create a guide for correspondence english tables names --> french names into the project
++ Create a guide for correspondence english tables names --> french names into the project
   ex: Video Favoris --> UserSelection
 
 - If there is time: http://stackoverflow.com/questions/10286204/the-right-json-date-format

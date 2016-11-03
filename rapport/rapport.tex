@@ -40,7 +40,7 @@
   numbers=none,
   numberstyle=\tiny\color{gray},
   keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
+  %commentstyle=\color{dkgreen},%
   stringstyle=\color{mauve},
   breaklines=true,
   breakatwhitespace=true,
@@ -81,8 +81,8 @@ trouverez les fichiers suivants:
       relationnel de la base.
 \item Le fichier {\bf tables.sql} qui contient le code SQL pour la création 
       de toutes les tables de la base.
-\item Dans le fichier {\bf queries.sql} vous trouverez les requêtes demandées
-      dans la première partie du sujet.
+\item Dans le fichier {\bf queries.sql} vous trouverez les solutions
+      au cinq requetes faisant l'object de la premiere partie du projet.
 \item Dans le fichier {\bf proc-fun.sql} vous trouverez les procédures et 
       les fonctions PL/SQL demandent et des requetés qui donnent des exemples d'utilisation.
 \item Le fichier {\bf triggers.sql} contiens les codes des déclencheurs qui
@@ -90,14 +90,21 @@ trouverez les fichiers suivants:
       deux parties: la première dédié aux contraintes dynamiques explicitement
       demande a la fin du sujet, et une deuxième partie contiennent les dés autres
       contraints dynamiques créés conformément à la description de la base.
-
-\item {\bf badqueries.sql} contiens des queries permettant de tester l'efficacité 
-      des contraintes de la base.
 \item Le fichier {\bf data.sql} permet de remplir la base.
 \item Les fichier {\bf droptables.sql} peut-être utilise pour éliminer toutes 
       les tables de la base.
 \item {\bf makedb.sql} est une raccourcie permettant de créer les tables, les 
       déclencheurs et remplir la base en une seule fois.
+\item Le fichier {\bf out.txt} contient un example de la sortie genere par 
+      les fichiers {\it makedb.sql, queries.sql et proc-fun.sql}. {\bf ATTENTION} le 
+      contenu de ce fichier a ete genere Jeudi 3 Novembre 2016 sur le serveur Oracle
+      disponible sur la machine {\it osr-etudiant.unistra.fr}: le produit
+      d'une execution dans une autre date pourrait sans doute etre different du 
+      contenu de {\it out.txt}
+      \footnote{Pour visualiser ce fichier je vous conseille de ne pas utiliser
+{\it vim} qui dans ce cas particulier pose quelque probleme d'affichage.
+Utilisez un autre editeur de texte (gedit par example) ou un affichage a
+l'ecran en utilisant la commande {\it cat}}.
 \end{itemize}
 
 \bigbreak
@@ -117,17 +124,33 @@ Utilisez le fichier {\bf makedb.sql} pour créer la base:
 \end{center}
 Une fois termine la création de la base vous pouvez procéder à l'exécution des requêtes
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @queries|},
+<<<<<<< HEAD
 à la création et exécution des fonctions et procédures PL/SQL
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|},
 ou bien tester les contraintes d'Intégrité de la base
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @badqueries|}.
+=======
+ou a la creation et execution des fonctions et procedures PL/SQL
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|}.
+>>>>>>> f75f6021f84e7325728f1dce385a22229e9fb1c7
 
 \smallbreak
 Dans chacun des ces cas vous serez presente avec un affichage permettant de
 facilement reconnetre sur l'ecran la sortie de chaque requete:
 
 \begin{lstlisting}
-%TODO insert example
+SQL> @queries
+
+***** Requete N. 1 ******************************************************
+* Nombre de visionnages de videos par categories de videos, pour les            *
+* visionnages de moins de deux semaines.                                        *
+*************************************************************************
+
+Category                                    Views
+-------------------------   --------------------------------
+Entertainment                                1
+Science                                      2
+Cinema                                       1
 \end{lstlisting}
 
 Apres avoir termine, utilisez le fichier {\bf droptables.sql} pour supprimer
@@ -142,8 +165,8 @@ description fourni dans le sujet, cette partie du rapport se limitera a fournir
 quelque éclaircissements sur des parties laisse a la "libre interpretation" des
 etudiants.
 
+\newpage
 \subsection{Noms et contenu des tables}
-
 \begin{table}[h]
   \centering
 % On paramètre ici le placement du texte dans les cases, en mode paragraphe de 5cm de large dans la case de gauche ("p{5cm}") et automatique avec un alignement à droite dans la case de droite ('r')
@@ -220,7 +243,7 @@ nom d'un pays: c'est pour cette raison que le type de cet champ est CHAR(2).
 
 \end{description}
 
-
+\newpage
 \section{Contraintes d'integrite}
 En complement aux contraintes d'integrite specifie dans la derniere partie du
 sujet, les contraintes d'integrite suivants ont ete implemente dans la base:
