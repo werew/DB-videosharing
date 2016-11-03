@@ -1,3 +1,3 @@
-@droptables
 @tables
+@triggers
 @data
