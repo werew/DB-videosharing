@@ -84,7 +84,7 @@ PROMPT *************************************************************************
 WITH nb_views AS (
 	SELECT v.VideoID,
 	       COUNT(CASE WHEN u.Country = 'FR' THEN 1 ELSE NULL END)  as fr,
-	       COUNT(CASE WHEN u.Country = 'DE' then 1 ELSE NULL END)  as de
+	       COUNT(CASE WHEN u.Country = 'DE' THEN 1 ELSE NULL END)  as de
 	FROM Video v
 	LEFT OUTER JOIN UserView uv
 	    ON v.VideoID = uv.VideoID
