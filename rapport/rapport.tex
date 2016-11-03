@@ -81,35 +81,28 @@ trouverez les fichiers suivants:
       relationnel de la base.
 \item Le fichier {\bf tables.sql} qui contient le code SQL pour la création 
       de toutes les tables de la base.
-\item Dans le fichier {\bf queries.sql} vous trouverez les solutions aux 
-      cinq requêtes faisant l'objet de la première partie du projet.
-\item Dans le fichier {\bf proc-fun.sql} vous trouverez les procédures et 
-      les fonctions PL/SQL demandent et des requetés qui donnent des exemples d'utilisation.
 \item Le fichier {\bf triggers.sql} contiens les codes des déclencheurs qui
       établissent les contraintes dynamiques sur la base. Ce fichier est divisé en
       deux parties: la première dédié aux contraintes dynamiques explicitement
-      demande a la fin du sujet, et une deuxième partie contiennent les dés autres
+      demande à la fin du sujet, et une deuxième partie contenant les dés autres
       contraints dynamiques créés conformément à la description de la base.
 \item Le fichier {\bf data.sql} permet de remplir la base.
-\item Les fichier {\bf droptables.sql} peut-être utilise pour éliminer toutes 
-      les tables de la base.
 \item {\bf makedb.sql} est une raccourcie permettant de créer les tables, les 
       déclencheurs et remplir la base en une seule fois.
+\item Dans le fichier {\bf queries.sql} vous trouverez les solutions aux 
+      cinq requêtes faisant l'objet de la première partie du projet.
+\item Dans le fichier {\bf proc-fun.sql} vous trouverez les procédures et 
+      les fonctions PL/SQL demandées et des requetés qui donnent des exemples d'utilisation.
+\item Le fichier {\bf test-triggers.sql} permet de tester tous les déclencheur.
+\item Le fichier {\bf droptables.sql} peut-être utilise pour éliminer toutes 
+      les tables de la base.
 \item Le fichier {\bf out.txt} contient un example de la sortie genere par 
-      les fichiers {\it makedb.sql, queries.sql et proc-fun.sql}. {\bf ATTENTION} le 
-      contenu de ce fichier a ete genere Jeudi 3 Novembre 2016 sur le serveur Oracle
-      disponible sur la machine {\it osr-etudiant.unistra.fr}: le produit
-      d'une execution dans une autre date pourrait sans doute etre different du 
-      contenu de {\it out.txt}
-      \footnote{Pour visualiser ce fichier je vous conseille de ne pas utiliser
-      {\it vim} qui dans ce cas particulier pose quelques problèmes d'affichage.
-      Utilisez un autre éditeur de texte (gedit par exemple) ou un affichage à
-      l'écran en utilisant la commande {\it cat}}.
+      les fichiers {\it queries.sql, proc-fun.sql et test-triggers.sql}. 
 \end{itemize}
 
 \bigbreak
 La plupart du temps vous trouverez plusieurs solutions pour les requêtes,
-fonctions, procédures et les déclencheurs (traduisent les contraintes) demandes
+fonctions, procédures et les déclencheurs (traduisent les contraintes) demandés
 dans le sujet. Chaque version représente une implémentation différente du
 travail à effectuer, un autre moyen de résoudre le problème (p .ex. avec
 curseur / sans curseur, avec des jointures / avec des sous-requêtes ...).
@@ -124,12 +117,15 @@ Utilisez le fichier {\bf makedb.sql} pour créer la base:
 \end{center}
 Une fois termine la création de la base vous pouvez procéder à l'exécution des requêtes
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @queries|},
-ou à la création et exécution des fonctions et procédures PL/SQL
+procéder à la création et exécution des fonctions et procédures PL/SQL
 \colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @proc-fun|}.
+ou tester les déclencheurs
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @test-triggers|}.
 
 \smallbreak
 Dans chacun de ces cas un affichage sera présent permettant de facilement
 reconnaître  sur l'écran la sortie de chaque requête:
+\vspace{1cm}
 
 \begin{lstlisting}
 SQL> @queries
@@ -146,18 +142,18 @@ Science                                      2
 Cinema                                       1
 \end{lstlisting}
 
+\vspace{1cm}
 Après avoir terminé, utilisez le fichier {\bf droptables.sql} pour supprimer la base de données:
 \begin{center}
-\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @droptables|}.
+\colorbox{gray}{\lstinline[basicstyle=\ttfamily\color{black}]|> @droptables|}
 \end{center}
 
+\newpage 
 \section{Description des tables}
-Étant donné que la structure de la base de données traduit directement la
+Étant donné que la structure de la base de données reflète directement la
 description fournie dans le sujet, cette partie du rapport se limitera à
-fournir quelques éclaircissements sur des parties laisse a la "libre
-interprétation" des étudiants.
+fournir quelques éclaircissements sur quelque choix personnel.
 
-\newpage
 \subsection{Noms et contenu des tables}
 \begin{table}[h]
   \centering
@@ -168,15 +164,15 @@ interprétation" des étudiants.
     \hline
     Video & Les videos disponibles\\
     \hline
-    ArchivedVideo  & Les videos archivee (non plus disponibles)\\
+    ArchivedVideo  & Les videos archivées \\
     \hline
     WebUser & Profils des utilisateurs \\
     \hline
-    UserPass & Pot de passe des utilisateurs \\
+    UserPass & Mots de passe des utilisateurs \\
     \hline
-    Program & Les emissions \\
+    Program & Les émissions \\
     \hline
-    Category & Les categories disponibles \\
+    Category & Les catégories disponibles \\
     \hline
     UserView & Les visionnages \\
     \hline
@@ -184,7 +180,7 @@ interprétation" des étudiants.
     \hline
     Subscription & Les abbonements des utilisateurs \\
     \hline
-    Preference & Preferences par categorie \\
+    Preference & Préférences par categorie \\
     \hline
     Diffusion & Diffusions des video \\
     \hline
@@ -196,21 +192,21 @@ interprétation" des étudiants.
 
 \subsection{Table {\it UserPass}}
 Les passwords des utilisateurs ne sont pas stockées dans la même table où ils
-sont stockés  avec les autres informations (table {\it WebUser}
+sont stockés les autres informations d'un utilisateur (table {\it WebUser}
 \footnote{Le nom {\it WebUser} dérive du fait que let mot {\it User} est un mot reservé dans Oracle:
 https://docs.oracle.com/cd/B19306\_01/em.102/b40103/app\_oracle\_reserved\_words.htm}.
-Cet approche valorise l'aspect securite et permet par
+Cet approche valorise l'aspect securité et permet par
 example de differentier les droits sur les tables
 \footnote{Une meilleure solutions pour stocker les mots de passe d'un
-utilisateur consiste a utiliser un serveur different pas accessible de
-l'exterieur et donc  moin subsceptible aux attaques}.
+utilisateur consiste à utiliser un serveur different pas accessible depuis
+l'exterieur et donc moin subsceptible aux attaques}.
 La table {\it UserPass} contient les hashes des passwords et leur valeur de
-salage.  Ce systeme represente aujourd'hui le minimum en termes de securite
+salage.  Ce systeme represente aujourd'hui le minimum en termes de securité
 dans le stockage des mots de passe des utilisateurs.
 
 
 \subsection{Types}
-Certaines choix d'implementation relatives aux certaines champs utilise dans la
+Certaines choix d'implementation relatives à certaines champs utilisés dans la
 base meritent une petite decription:
 
 
@@ -219,11 +215,11 @@ base meritent une petite decription:
 Oracle n'implémente pas le type boolean, pour cette raison il a fallu utiliser
 une autre stratégie pour les champs ayant une valeur de ce type.  Dans ce
 projet le type boolean est replacé par un caractère (type CHAR) ayant comme
-valeurs possibles "Y" pour {\it vrai} et 'N' pour {\it fausse}.
+valeurs possibles 'Y' pour {\it vrai} et 'N' pour {\it faux}.
 
 \item[Email] - En suivant la spécification du protocole SMTP
 \footnote{RFC 5321 - https://tools.ietf.org/html/rfc5321.html}
-la taille limite pour un champ contenant un email est de 320 caractères: 64
+la taille limite pour un champ contenant une email est de 320 caractères: 64
 caractères pour le nom de l'utilisateur + @ + 255 caractères pour le nom du
 domaine \footnote{ Une possibilité, pas implémente dans le travail rendu pour
 des raisons de simplicité, était celle de stocker les noms de domaines dans une
@@ -243,31 +239,36 @@ suivantes ont été implémenté dans la base.
 \begin{itemize}
 \item Un utilisateur ne peut pas visionner une vidéo qui n'a pas été diffusé,
 par contre il peut le sélectionner (le mettre dans les favoris) par exemple
-pour un visionnage futur.
+pour un visionnage futur. Trigger {\it ValidView}.
 
 \item Un utilisateur ne peut pas visionner une vidéo qui a dépassé la date de
-validité (même s'il n'a pas encore été archivée).
+validité (même s'il n'a pas encore été archivée). Trigger {\it ValidView}.
 
-\item Si la date de disponibilité n'est pas passée, une vidéo ne peut pas être supprimée
+\item Si la date de disponibilité n'est pas passée, une vidéo ne peut pas être supprimée. 
+      Trigger {\it WaitExpiration }.
 
 \item Comme spécifie le sujet: {\it "Après une diffusion, une vidéo sera
-accessible sur le site en replay pendant au moins 7 jours"}.
+accessible sur le site en replay pendant au moins 7 jours"}. 
 \footnote{NB: la deuxième contrainte demande dans le sujet ({\it"Si une diffusion d’une émission est
 ajoutée, les dates de disponibilités seront mises à jour.  La nouvelle date de
 fin de disponibilité sera la date de la dernière diffusion plus 4 jours."})
 n'implique pas que cette contrainte soit satisfaite (p.ex. il ne couvre pas les
-opérations d'UPDATE sur la table {\it Video}).}
+opérations d'UPDATE sur la table {\it Video}).} 
+Trigger {\it BadExpiration}.
 
 \item La date (année) de première diffusion d'une vidéo ne doit pas être
 supérieure la date de la première diffusion dans la table {\it Diffusion}.
+Triggers {\it FirstDiffusionCheck} et {\it VideoWasDiffused}.
 
 \item  Au moment de sa création, le champ Time d'un visionnage ne peut pas être
 supérieure à la date actuelle (SYSDATE): on interdit les visionnages "dans le
 futur".
-
 \footnote{C'est le cas typique d'une contrainte qui pourrait être remplacé par
 l'intervention de l'application web (côté serveur) dans le choix de la date du
 visionnage.}
+Trigger {\it ValidView}.
+
+
 
 \end{itemize}
 
