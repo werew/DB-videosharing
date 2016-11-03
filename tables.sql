@@ -32,7 +32,7 @@ CREATE TABLE Category (
 
 CREATE TABLE Program (
     ProgramID   INTEGER                 PRIMARY KEY,
-    Name        VARCHAR2(20)            NOT NULL,
+    Name        VARCHAR2(50)            NOT NULL,
     CategoryID  INTEGER                 NOT NULL,
     CONSTRAINT  fk_Program_Category     FOREIGN KEY (CategoryID) 
                                         REFERENCES Category
@@ -41,7 +41,7 @@ CREATE TABLE Program (
 
 CREATE TABLE Video (
     VideoID     INTEGER                 PRIMARY KEY,
-    Name        VARCHAR2(200)           NOT NULL,
+    Name        VARCHAR2(100)           NOT NULL,
     Description VARCHAR2(400)           ,
     Length      INTEGER                 ,
     Country     CHAR(2)                 ,

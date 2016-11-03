@@ -39,7 +39,7 @@ INSERT INTO Program (ProgramID, Name, CategoryID)
 INSERT INTO Program (ProgramID, Name, CategoryID)
             VALUES  (1, 'Great movies', 1);
 INSERT INTO Program (ProgramID, Name, CategoryID)
-            VALUES  (2, 'Turing''s life', 3);
+            VALUES  (2, 'Great personalities of the last century', 3);
 INSERT INTO Program (ProgramID, Name, CategoryID)
             VALUES  (3, 'Futurama', 2);
 

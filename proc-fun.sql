@@ -93,6 +93,7 @@ END;
 
 -- Without a cursor and using an OUT parameter to
 -- return the text of the mail.
+/*
 CREATE OR REPLACE PROCEDURE mk_newsletter_mail2 (email_v OUT VARCHAR2)
 IS
 BEGIN
@@ -118,10 +119,12 @@ BEGIN
 		   'See you soon on www.fantasticvideos.com!';
 END;
 /
+*/
 
 
 /* Execution */
 EXECUTE mk_newsletter_mail;
+/*
 DECLARE
 	email_v VARCHAR2(4000);
 BEGIN
@@ -129,6 +132,7 @@ BEGIN
 	dbms_output.put_line(email_v);
 END;
 /
+*/
 
 
 
