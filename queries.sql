@@ -15,7 +15,6 @@ GROUP BY c.CategoryID , c.Name ;
 
 -- Using the JOIN statement
 
-/* 
 SELECT Category.Name "Category" , COUNT(*) "Views"
 FROM Category 
     INNER JOIN Program 
@@ -26,7 +25,6 @@ FROM Category
         ON UserView.VideoID = Video.VideoID
 WHERE  UserView.Time > SYSDATE - 14
 GROUP BY Category.Name ;
-*/
 
 
 PROMPT ***** Requete N. 2 ******************************************************
@@ -51,7 +49,6 @@ ORDER BY u.UserID;
 
 -- Without using COUNT
 
-/*
 SELECT u.UserID "User", 
        COUNT(DISTINCT s.ProgramID)  "Subscriptions", 
        COUNT(DISTINCT us.VideoID ) "Selections"   ,
@@ -70,7 +67,6 @@ FROM WebUser u
         ON u.UserID = k.UserID 
 GROUP BY u.UserID, k.Count
 ORDER BY u.UserID;
-*/
 
 
 
@@ -100,7 +96,6 @@ ORDER BY "Difference";
 
 -- Using nested queries
 
-/*
 SELECT v.VideoID, fr.NbViews "Views FR" , de.NbViews "Views DE", 
        ABS(de.NbViews - fr.NbViews) as "Difference"
 FROM Video v
@@ -121,7 +116,6 @@ LEFT OUTER JOIN (SELECT v.VideoID, COUNT(u.UserID) NbViews
 	         GROUP BY v.VideoID) de
     ON v.VideoID = de.VideoID 
 ORDER BY "Difference";
-*/
 
 
 
@@ -182,7 +176,6 @@ WHERE ROWNUM <= 10;
 
 -- Into the same column
 
-/*  
 SELECT * FROM  (
     SELECT v1.VideoID || ' , ' ||  v2.VideoID "Couples of videos"
         FROM Video v1
@@ -198,5 +191,3 @@ SELECT * FROM  (
 	ORDER BY COUNT(DISTINCT uv.UserID) DESC
 )
 WHERE ROWNUM <= 10;
-*/
-

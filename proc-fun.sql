@@ -33,7 +33,7 @@ END;
 
 
 /* Execution */
-SELECT video2json(VideoID) "JSON" FROM Video;
+SELECT video2json(3) "JSON" FROM DUAL;
 
 
 
